@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Text</title>
+     <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <style>
+        body {
+    background: #222D32;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-box {
+    margin-top: 35px;
+    padding-top:0.5em;
+    height: auto;
+    background: #1A2226;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.login-key {
+    margin-top: 3px;
+    height: 80px;
+    font-size: 65px;
+    line-height: 80px;
+    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-title {
+    margin-top: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+
+    font-weight: bold;
+    color: #ECF0F5;
+}
+
+.login-form {
+    margin-top: 25px;
+    text-align: left;
+}
+
+input[type=text] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ECF0F5;
+}
+
+input[type=password] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    color: #ECF0F5;
+}
+
+input[type=email] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ECF0F5;
+}
+
+.form-group {
+    margin-bottom: 40px;
+    outline: 0px;
+}
+
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #0DB8DE;
+    outline: 0;
+    background-color: #1A2226;
+    color: #ECF0F5;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0;
+}
+
+label {
+    margin-bottom: 0px;
+}
+
+.form-control-label {
+    font-size: 10px;
+    color: #6C6C6C;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.btn-outline-primary {
+    border-color: #0DB8DE;
+    color: #0DB8DE;
+    border-radius: 0px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.btn-outline-primary:hover {
+    background-color: #0DB8DE;
+    right: 0px;
+}
+
+.login-btm {
+    float: left;
+}
+
+.login-button {
+    padding-right: 0px;
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.login-text {
+    text-align: left;
+    padding-left: 0px;
+    color: #A2A4A4;
+}
+
+.loginbttm {
+    padding: 0px;
+}
+
+
+.main-img{
+  
+    font-size: 1em;
+    margin-right:10px;
+  }
+ .heading{
+    color:white;
+ }
+ .l1{
+    font-size: 1em;
+ }
+ .i1{
+    width:1.2em!important;
+ }
+ .heading h1{
+    margin-top: 0.4em;
+}
+.heading:hover{
+    color:rgb(187, 187, 187);
+  opacity:0.9;
+}
+
+.main-heading{
+    margin-top: 50px;padding-left:0px !important;font-size: 22px;
+}
+.sub-heading{
+    font-family: 'Gabarito', cursive;letter-spacing: 1px;margin-left: 0em;
+}
+.heading {
+    display: flex;
+ 
+    align-items: center;
+  cursor:pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+  @media only screen and (max-width: 600px) {
+    .heading {
+   
+    justify-content: center;
+    }
+    .sub-heading{
+        margin-left: 0.1em;
+    }
+    .main-heading{
+    margin-top: 20px;font-size: 22px;
+}
+.login-box {
+    margin-top: 40px !important;
+    margin-bottom: 0.5em;
+    }
+    .heading:hover{
+    color:white;
+  opacity:0.9;
+}
+    .login-box {
+    margin-top: 75px;
+    }
+    .main-img{
+      width:2.3em;
+      margin-right:10px;
+    }
+    .heading h1{
+    margin-top: 0em;
+}
+  }
+
+
+.l1:active{
+ color:gray;
+}
+
+
+.error {
+    border-bottom: 2px solid red !important;
+}
+@media only screen and (min-width: 720px) {
+  .login-box1 {
+    margin-top: 35px;
+    padding-top:0.5em;
+   height:fit-content !important;
+    background: #1A2226;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+  }
+  .scol-3{
+ 
+ padding:1em 0em;
+
+}
+.login{
+margin: 2em 1em;
+}
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+       
+        <div class="row">
+            <div class="col-lg-3 col-md-3 main-heading" >
+                <div class="heading">
+                    <div class=" d-flex align-items-center">
+                    <img class="main-img i1 " src="images/copy.png" alt="Not Found" />
+                    <h1 class="pt-2 pt-md-0 l1 sub-heading">Share Text</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 login-box mx-auto">
+                <div class="col-lg-12 login-key">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                </div>
+                <div class="col-lg-12 login-title">
+                   Sign Up
+                </div>
+
+                <div class="col-lg-12 login-form">
+                    <div class="col-lg-12 login-form">
+                        <form method="POST" action="/signup" >
+                            <div class="form-group">
+                                <label class="form-control-label">USERNAME</label>
+                                <input name="username" type="text" class="form-control mb-0" required>
+                                <label class="uerror small text-white text-muted mb-0 pb-0 d-none"></label>
+                           
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Email</label>
+                                <input name="email" type="email" class="form-control mb-0" required>
+                                <label class="eerror small text-white text-muted mb-0 pb-0 d-none"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">PASSWORD</label>
+                                <input name="password" type="password" class="form-control mb-0" required>
+                                <label class="perror small text-white text-muted mb-0 pb-0 d-none"></label>
+                            </div>
+                           
+                            <div class="col-lg-12 loginbttm">
+                                <div class="col-lg-6 login-btm login-text">
+                                    <!-- Error Message -->
+                                </div>
+                                <div class="col-lg-6 login-btm login-button">
+                                    <button type="submit" class="btn btn-outline-primary s1">Sign Up<span class="load"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             
+            </div>
+            <div class="col-lg-3 col-md-3 scol-3 " >
+                <div  class="login login-box d-flex justify-content-center align-items-center login-box1 "   style="flex-direction: column;">
+                    <p style="text-decoration: underline;text-underline-offset: 0.5em; line-height: 2em;" class="text-white mt-2"> Already have an account ? <span class="d-inline-block m-2 btn btn-sm btn-primary su mt-3 " >Login</span></p>
+                    
+                </div>
+              
+                </div>
+         
+        </div>
+    
+<style>
+
+/* spining circle */
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+    }
+}
+ 
+
+ @-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.load {
+    width: 16px;
+	height: 16px;
+    margin: auto 10px;
+
+	border:solid 3px #8822aa;
+	border-radius: 50%;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	 -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name:             rotate; 
+    -webkit-animation-duration:         1.0s; 
+    -webkit-animation-iteration-count:  infinite;
+    -webkit-animation-timing-function: linear;
+    	
+    	 transition: all 0.5s ease-in;
+    animation-name:             rotate; 
+    animation-duration:         1.0s; 
+    animation-iteration-count:  infinite;
+    animation-timing-function: linear; 
+}
+
+</style>
+      
+<script>
+ 
+   
+       let l1 = document.querySelector('.login');
+    l1.addEventListener('click',()=>{
+        window.location.href="/login";
+    })
+    let logintext = document.querySelector(".login-text");
+    let heading = document.querySelector(".heading");
+    heading.addEventListener("click", function () {
+        logintext.innerHTML = "Sign Up to continue";
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+           
+    let load = document.querySelector(".load");
+    load.style.display ="none";
+    const form = document.querySelector("form");
+    const usernameInput = form.querySelector('input[name="username"]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const errors = {
+        username: "username must be at least 5 characters.",
+        email: "Please enter a valid email address.",
+        password: "Password must be at least 6 characters.",
+        nametaken:"Username already taken",
+        emailtaken:"Email already taken"
+    }
+
+    let isFetching = false;
+
+    form.addEventListener("submit", function(event) {
+       
+        event.preventDefault(); // Prevent form submission
+        load.style.display ="inline-block";
+        
+        let hasError = false;
+
+      
+            if (isFetching) {
+    console.log("A fetch request is already in progress. Please wait.");
+load.style.display ="inline-block";
+    return;
+  } 
+
+
+        // Reset previous error styles
+        usernameInput.classList.remove("error");
+        emailInput.classList.remove("error");
+        passwordInput.classList.remove("error");
+        usernameInput.nextElementSibling.classList.add("d-none");
+        emailInput.nextElementSibling.classList.add("d-none");
+        passwordInput.nextElementSibling.classList.add("d-none");
+
+        // Validate username (minimum 5 characters)
+        if (usernameInput.value.length < 5) {
+            usernameInput.classList.add("error");
+            usernameInput.nextElementSibling.classList.remove("d-none");
+            usernameInput.nextElementSibling.innerHTML = errors.username;
+            hasError = true;
+        }
+
+        // Validate email format
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailInput.classList.add("error");
+            emailInput.nextElementSibling.classList.remove("d-none");
+            emailInput.nextElementSibling.innerHTML = errors.email;
+            hasError = true;
+        }
+
+        // Validate password (minimum 6 characters)
+        if (passwordInput.value.length < 6) {
+            passwordInput.classList.add("error");
+            passwordInput.nextElementSibling.classList.remove("d-none");
+            passwordInput.nextElementSibling.innerHTML = errors.password;
+            hasError = true;
+        }
+  
+    
+  isFetching = true;
+        if (!hasError) {
+         
+ 
+fetch("/signup", {
+    method: "POST",
+    headers: {
+    'Content-Type': 'application/x-www-form-urlencoded' // Set the Content-Type header
+  },
+  body: new URLSearchParams(new FormData(form)).toString()
+}).then(res => res.json()).then((data)=>{
+    isFetching = false;
+    load.style.display ="none";
+
+    if(data.message == "Username already taken"){
+        usernameInput.classList.add("error");
+        usernameInput.nextElementSibling.classList.remove("d-none");
+        usernameInput.nextElementSibling.innerHTML = errors.nametaken;
+        console.log(data);
+    }else if(data.message == "Email already taken"){
+        emailInput.classList.add("error");
+        emailInput.nextElementSibling.classList.remove("d-none");
+        emailInput.nextElementSibling.innerHTML = errors.emailtaken;
+        console.log(data);
+    }else if(data.message=='Success'){
+        
+       window.location.href = "/verify-email";
+
+    }else if(data.message=="Fail to Send Email"){
+        window.location.href = "/verify-email";
+    }else{
+       logintext.textContent = "Something went wrong. Please try again later."
+
+    }
+
+}).catch((err)=>{
+    isFetching = false;
+    load.style.display ="none";
+
+})
+
+
+        }
+    
+});
+
+});
+</script>
+</body>
+</html>

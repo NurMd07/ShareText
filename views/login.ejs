@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Share Text</title>
+     <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+    background: #222D32;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-box {
+    margin-top: 35px;
+    padding-top:0.5em;
+    height: auto;
+    background: #1A2226;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.login-key {
+    margin-top: 3px;
+    height: 80px;
+    font-size: 65px;
+    line-height: 80px;
+    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-title {
+    margin-top: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+
+    font-weight: bold;
+    color: #ECF0F5;
+}
+
+
+
+.login-form {
+    margin-top: 25px;
+    text-align: left;
+}
+
+input[type=text] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ECF0F5;
+}
+
+input[type=password] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    color: #ECF0F5;
+}
+
+.form-group {
+    margin-bottom: 40px;
+    outline: 0px;
+}
+
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #0DB8DE;
+    outline: 0;
+    background-color: #1A2226;
+    color: #ECF0F5;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0;
+}
+
+label {
+    margin-bottom: 0px;
+}
+
+.form-control-label {
+    font-size: 10px;
+    color: #6C6C6C;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.btn-outline-primary {
+    border-color: #0DB8DE;
+    color: #0DB8DE;
+    border-radius: 0px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.btn-outline-primary:hover {
+    background-color: #0DB8DE;
+    right: 0px;
+}
+
+.login-btm {
+    float: left;
+}
+
+.login-button {
+    padding-right: 0px;
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.login-text {
+    text-align: left;
+    padding-left: 0px;
+    color: #A2A4A4;
+}
+
+.loginbttm {
+    padding: 0px;
+}
+
+
+.main-img{
+    width:2.5em;
+    margin-right: 8px;
+  }
+ .heading{
+    color:white;
+ }
+ .l1{
+    font-size: 1em;
+ }
+ .i1{
+    width:1.2em!important;
+ }
+ .heading h1{
+    margin-top: 0.4em;
+}
+.heading:hover{
+    color:rgb(187, 187, 187);
+  opacity:0.9;
+}
+
+.main-heading{
+    margin-top: 50px;padding-left:0px !important;font-size: 22px;
+}
+.sub-heading{
+    font-family: 'Gabarito', cursive;letter-spacing: 1px;margin-left: 0em;
+}
+  @media only screen and (max-width: 700px) {
+    .signup{
+    margin:1em;
+    margin-top: 3em !important;
+}
+    .sub-heading{
+        margin-left: 0.1em;
+    }
+    .heading:hover{
+    color:white;
+  opacity:0.9;
+}
+.main-heading{
+    margin-top: 25px;font-size: 22px;
+}
+    .login-box {
+    margin-top: 50px;
+    margin-bottom: 2em;
+    }
+    .main-img{
+      width:2.3em;
+      margin-right:10px;
+    }
+    .heading h1{
+    margin-top: 0em;
+}
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+  }
+.scol-3{
+ 
+    padding:1em 0em;
+
+}
+  @media only screen and (min-width: 720px) {
+  .login-box1 {
+    margin-top: 35px;
+    padding-top:0.5em;
+   height:fit-content !important;
+    background: #1A2226;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+  }
+
+.l1:active{
+ color:gray;
+}
+
+
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+    }
+}
+ 
+
+ @-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.load {
+    display: inline-block;
+    width: 16px;
+	height: 16px;
+   
+
+	border:solid 3px #8822aa;
+	border-radius: 50%;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	 -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name:             rotate; 
+    -webkit-animation-duration:         1.0s; 
+    -webkit-animation-iteration-count:  infinite;
+    -webkit-animation-timing-function: linear;
+    	
+    	 transition: all 0.5s ease-in;
+    animation-name:             rotate; 
+    animation-duration:         1.0s; 
+    animation-iteration-count:  infinite;
+    animation-timing-function: linear; 
+}
+
+.main-heading:hover{
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+       
+        <div class="row">
+            <div class="col-lg-3 col-md-3 main-heading" >
+                <div class="heading">
+                    <div class=" d-flex align-items-center">
+                    <img class="main-img i1 " src="images/copy.png" alt="Not Found" />
+                    <h1 class="pt-2 pt-md-0 l1 sub-heading">Share Text</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 login-box mx-auto">
+                <div class="col-lg-12 login-key">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                </div>
+                <div class="col-lg-12 login-title">
+                    Login
+                </div>
+
+                <div class="col-lg-12 login-form">
+                    <div class="col-lg-12 login-form">
+                        <form method="POST" action="/login" class="form1" onsubmit="return validateForm()">
+                            <div class="form-group">
+                                <label class="form-control-label">EMAIL / USERNAME</label>
+                                <input name="username" type="text" class="form-control inp1" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">PASSWORD</label>
+                                <input name="password" type="password" class="form-control inp2" required>
+                            </div>
+
+                            <div class="col-lg-12 loginbttm">
+                                <div class="col-lg-7 login-btm login-text" style="font-size: 0.8em;">
+                                    <!-- Error Message --><% if(error){ %>
+                                            <%= error %>
+                                            <% } %>
+                                </div>
+                                <div class="col-lg-5 login-btm login-button">
+                                    <button type="submit" class="btn btn-outline-primary s1">LOGIN <span class="load"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              
+         
+        </div>
+        <div class="col-lg-3 col-md-3 scol-3 " >
+            <div  class="signup  login-box d-flex justify-content-center align-items-center login-box1"   style="flex-direction: column;">
+                <p style="text-decoration: underline;text-underline-offset: 0.5em;" class="text-white  "> Need an account ? <span class="d-inline-block m-2 btn btn-sm btn-success su">Register</span></p>
+                <div class="forgot">
+                    <p style="font-size:0.7em" class="btn btn-outline-primary su2">Forgot your password?</p>
+               </div>
+            </div>
+          
+            </div>
+           
+
+            </div>
+            </div>
+
+           
+<script>
+    let su = document.querySelector('.su');
+    su.addEventListener('click',()=>{
+        window.location.href="/signup";
+    })
+    let su2 = document.querySelector('.su2');
+    su2.addEventListener('click',()=>{
+        window.location.href="/forgot-password";
+      
+    })
+    let logintext = document.querySelector(".login-text");
+    let heading = document.querySelector(".heading");
+    heading.addEventListener("click", function () {
+        logintext.innerHTML = "Login To Continue";
+    });
+
+    let load = document.querySelector(".load");
+    load.style.display ="none";
+
+
+    
+        function validateForm() {
+            load.style.display ="inline-block";
+            const inp1 = document.querySelector(".inp1").value;
+            const inp2 = document.querySelector(".inp2").value;
+
+            if (inp1.length < 5 || inp2.length <6 ) {
+                logintext.innerHTML = 'Username or password should be more than 5 characters';
+                console.log('prevented')
+                load.style.display ="none";
+                return false; // Prevent form submission
+                
+            }
+
+            // If the condition is met, the form submission is allowed.
+            return true;
+        }
+    
+
+</script>
+</body>
+</html>

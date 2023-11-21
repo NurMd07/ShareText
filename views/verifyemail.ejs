@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <style>
+        .main{
+            text-align: center;
+            margin:0 auto;
+            max-width:700px;
+            padding:10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .line{
+            width: 100%;
+            margin: 0 auto;
+            border: 1px solid #000;
+        }
+        .resend{
+            color: blue;
+            padding:4px 8px;
+            border: 1px solid blue;
+            border-radius: 3px;
+            text-decoration: none;
+            margin-left:1em;
+            font-size:15px;
+        }
+        .resend:hover{
+            color: #fff;
+            background-color: blue;
+        }
+        
+        .info2{
+         
+            margin-top: 1.5em;
+        }
+       
+        .btn{
+            color: green;
+            padding:4px 8px;
+            border: 1px solid green;
+            border-radius: 3px;
+            text-decoration: none;
+            margin-left:0.5em;
+            font-size:15px;
+           
+        }
+        .btn:hover{
+            color: #fff;
+            background-color: green;
+        }
+        .footer{
+       margin-top: 3em;
+max-width: 400px;
+       border:1px solid #ccc;
+       border-radius: 10px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       padding:0.5em 1em;
+       line-height: 0.5;
+       box-shadow:1px 1px 1px 1px #ccc;
+        }
+        .heading {
+  position: fixed;
+  bottom: 1.5em;
+  left: 50%; /* set left to 50% */
+  transform: translateX(-50%); /* move the div left by half of its width */
+  cursor:pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.main-img{
+    width:1.6em;
+    margin-right:7px;
+    vertical-align: center;
+  }
+
+ .heading h1{
+    font-size:1.3em;
+    vertical-align: center;
+    font-family: Arial;
+    letter-spacing: 0.5px;
+}
+
+  @media only screen and (max-width: 600px) {
+   
+    .main-img{
+      width:1.5em;
+     
+    }
+    .heading h1{
+font-size: 1.3em;
+}
+  }
+
+  .info1{
+    line-height: 2;
+  }
+
+
+
+  <% if(error){ %>
+
+.finfo1{
+margin-bottom: 0px;
+line-height: 1.5;
+
+}
+.finfo2{
+line-height: 1.5;
+}
+.fbtn{
+    color: blue;
+            padding:4px 8px;
+            border: 1px solid blue;
+            border-radius: 3px;
+            text-decoration: none;
+            margin-left:1em;
+            font-size:14px;
+        margin-top: 1em;
+            display: inline-block;
+}
+<% } %>
+.hidden{
+    display: none;
+}
+.timer{
+margin-left: 0.7em;
+font-weight: 600;
+font-family: 'Courier New', Courier, monospace;
+}
+.success:hover{
+    color: #fff;
+    background-color: green;
+}
+.success{
+    color: green;
+    background-color:white ;
+    border:1px solid green;
+}
+.wait{
+    color: rgb(255, 111, 0);
+    background-color:white;
+    border:1px solid rgb(255, 111, 0);
+}
+.wait:hover{
+    color: white;
+    background-color:rgb(255, 111, 0);
+  
+}
+    </style>
+</head>
+<body>
+    
+    <div class="main">
+
+     
+<% if(error){ %>
+        <h3 >Something went wrong!</h3>
+        <p class="line"></p>
+
+       
+
+        <p class="finfo1" >Fail to send email verification link.</P>
+            <P class="finfo2">Either <b>Sign up</b> later or click here to retry : <span class="fbtn resend" href=""> Resend Link  </span><span class='timer hidden'>89</span></p>
+      <%      }else{ %>
+   <h3>Email Verification Sent.</h3> 
+   <p class="line"></p>
+ <p class="info1" >Check you email to complete account sign up. Link is valid for 30 minutes.</p>
+        <p class="info2">Didn't recieve email? <span class="resend"  href=""> Resend </span><span class='timer hidden'>89</span></p>
+
+           <% } %>
+        <div class="footer">
+            <p class="login">Already have an account (<b> Verified </b>)? </p>
+            <p>Continue to <a class="btn" href="/login"> Login </a></p>
+        </div>
+      
+    </div>
+ 
+    <div class="heading">
+        <img class="main-img" src="images/copy.png" alt="Not Found" />
+        <h1 class="l1">Share Text</h1>
+        </div>
+   
+        <script>
+  
+
+    let heading = document.querySelector('.heading');
+    heading.addEventListener('click', () => {
+        window.location.href = '/';
+    });
+
+    let resend = document.querySelector('.resend');
+    let timer = document.querySelector('.timer');
+
+    if (resend) {
+        resend.addEventListener('click', () => {
+            if (resend.style.cursor === 'not-allowed') {
+                return;
+            }
+           send();
+        });
+    }
+
+    function send(){
+    resend.style.cursor = 'not-allowed';
+    resend.textContent = 'Sending ...'
+
+
+    let timeLeft = 90; // 90 seconds
+    timer.textContent = timeLeft;
+    timer.classList.remove('hidden');
+
+    let interval1 = setInterval(() => {
+        timeLeft--;
+        timer.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(interval1);
+            resend.style.cursor = 'pointer';
+            resend.textContent = 'Resend';
+            timer.classList.add('hidden');
+            resend.classList.remove('wait');
+        }
+    }, 1000);
+
+
+
+  
+
+    fetch('/resend-verification-email',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },body:JSON.stringify({
+            msg:'verify'
+        })
+    }).then(res=>res.json()).then(data=>{
+console.log(data)
+        if(data.status === 'success'){
+           
+    resend.textContent = 'Sent Successfully';
+    timer.classList.remove('hidden');
+    resend.classList.add('success');
+    setTimeout(()=>{
+        resend.textContent = 'Resend in ...'
+        resend.classList.remove('success');
+        resend.classList.add('wait');
+    },5000);
+        }else if(data.message=='Email Already Verified'){
+            resend.textContent = 'Email Already Verified';
+            timer.classList.add('hidden');
+            resend.style.cursor = 'not-allowed';
+            clearInterval(interval1);
+        }else if(data.message=="cooldown"){
+        
+            resend.textContent = 'Resend in ...';
+        
+    }else if(data.message=='Email Not Found'){
+
+        resend.textContent = 'Email Not Found';
+        timer.classList.add('hidden');
+        resend.style.cursor = 'not-allowed';
+        clearInterval(interval1);
+
+    }else{
+            resend.textContent = 'Failed to send';
+            resend.classList.add('wait');
+            setTimeout(()=>{
+                resend.textContent = 'Retry in ...';
+                resend.classList.remove('wait');
+            },5000);
+        }
+    }).catch(err=>{
+        resend.textContent = 'Failed to send';
+            resend.classList.add('wait');
+            setTimeout(()=>{
+                resend.textContent = 'Retry in ...';
+                resend.classList.remove('wait');
+            },5000);
+    })
+
+}
+            </script>
+</body>
+</html>
