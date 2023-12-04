@@ -6,8 +6,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import jwt from 'jsonwebtoken';
+
 import User from './models/user.js';
 import Text from "./models/text.js";
+import Blocklist from "./models/blocklist.js";
+
 import backupText from "./models/backup.js";
 import dayjs from 'dayjs';
 
@@ -153,7 +156,7 @@ data = JSON.parse(data)
 })
 
 app.get('/login',(req,res)=>{
-
+ 
   const errorMessage = req.session.errorMessage || '';
   req.session.errorMessage = '';
 
@@ -172,7 +175,10 @@ res.render('signup');
 
 app.post('/login',loginSignupLimiter, async (req, res) => {
   try {
-    const { username, password } = req.body;
+    
+    let { password, username } = req.body;
+username = username.toLowerCase();
+
 
     if(username.length < 5){
       req.session.errorMessage = 'Username should be minimum of 5 chracters';
@@ -185,8 +191,17 @@ app.post('/login',loginSignupLimiter, async (req, res) => {
 
     // Check if the provided username or email exists in the database
     const user = await User.findOne({ $or: [{ username }, { email: username }] });
+
+    const isBlockedUser = await Blocklist.findOne({ $or: [{ username }, { email: username }] });
+   
+    if (isBlockedUser) {
+
+      req.session.errorMessage = 'Your account is suspended!'
+      return res.redirect('/login');
+    }
+
     if (!user) {
-      req.session.errorMessage = 'Invalid username or password!';
+      req.session.errorMessage = 'User does not exist!';
       return res.redirect('/login');
     }
 
@@ -206,7 +221,6 @@ if(!user.isEmailVerified){
     req.session.user = {
       userId: user._id,
       username: user.username,
-      role: 'admin'
     };
 
     res.redirect('/');
@@ -222,11 +236,21 @@ import nodemailer from 'nodemailer';
 app.post('/signup',loginSignupLimiter, async (req, res) => {
  
   try {
-    const { username, password, email } = req.body;
+    let { password, email, username } = req.body;
+username = username.toLowerCase();
+email = email.toLowerCase()
 
-    // Check if the username or email already exists in the database
+ 
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
-  
+    const isBlockedUser = await Blocklist.findOne({ $or: [{ username }, { email }] });
+   
+        if (isBlockedUser) {
+
+          return res.status(500).json({ message: 'Your account has been suspended' });
+    
+        }
+
+
     if (existingUser) {
       if (existingUser.username === username) {
         return res.status(400).json({ message: 'Username already taken' });
@@ -278,7 +302,7 @@ app.post('/signup',loginSignupLimiter, async (req, res) => {
                    Thanks for registering for an account on Aquafusion! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
                </p>
                <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
-                   <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://localhost:8000/verify-email/${emailVerificationToken}">Verify Email</a>
+                   <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get('host')}/verify-email/${emailVerificationToken}">Verify Email</a>
                </p>
                <p class="info1">This Link will expire in 30 Minutes.</p>
                <p class="line" style="border-bottom: 1px solid #ccc; margin-bottom: 0px;"></p>
@@ -427,7 +451,7 @@ if(!emailVerificationToken){
                    Thanks for registering for an account on Aquafusion! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
                </p>
                <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
-                   <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://localhost:8000/verify-email/${emailVerificationToken}">Verify Email</a>
+                   <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get('host')}/verify-email/${emailVerificationToken}">Verify Email</a>
                </p>
                <p class="info1">This Link will expire in 30 Minutes.</p>
                <p class="line" style="border-bottom: 1px solid #ccc; margin-bottom: 0px;"></p>
@@ -520,7 +544,7 @@ try{
                   You are receiving this because you (or someone else) requested to reset your password. Click the following to reset your password.
               </p>
                  <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
-                     <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://localhost:8000/forgot-password/${resetToken}">Reset Password</a>
+                     <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get('host')}/forgot-password/${resetToken}">Reset Password</a>
                  </p>
                  <p class="info1">This Link will expire in 30 Minutes.</p>
                  <p class="line" style="border-bottom: 1px solid #ccc; margin-bottom: 0px;"></p>

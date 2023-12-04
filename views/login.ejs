@@ -140,7 +140,9 @@ label {
     text-align: right;
     margin-bottom: 25px;
 }
-
+.s1:hover {
+    cursor: pointer;
+}
 .login-text {
     text-align: left;
     padding-left: 0px;
@@ -171,6 +173,11 @@ label {
 .heading:hover{
     color:rgb(187, 187, 187);
   opacity:0.9;
+
+    cursor:pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .main-heading{
@@ -179,7 +186,19 @@ label {
 .sub-heading{
     font-family: 'Gabarito', cursive;letter-spacing: 1px;margin-left: 0em;
 }
-  @media only screen and (max-width: 700px) {
+
+@media only screen and (min-width: 820px) and (max-width:1000px){
+.container {
+  max-width: 95%;
+ 
+}
+.lcol{
+    margin-right: -1em !important;
+    margin-left: 1em !important;
+}
+}
+  @media only screen and (max-width: 755px) {
+
     .signup{
     margin:1em;
     margin-top: 3em !important;
@@ -220,7 +239,12 @@ label {
     padding:1em 0em;
 
 }
-  @media only screen and (min-width: 720px) {
+  @media only screen and (min-width: 740px) {
+    .container {
+
+margin-top: 2em;
+
+}
   .login-box1 {
     margin-top: 35px;
     padding-top:0.5em;
@@ -280,7 +304,21 @@ label {
 }
 
 .main-heading:hover{
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.su2,.su{
     cursor: pointer;
+}
+@media only screen and (min-width:1200px){
+   .lcol{
+    margin-left: 4em !important;
+    margin-right: 0em !important;
+   }
+
+  
 }
 
     </style>
@@ -290,7 +328,7 @@ label {
     <div class="container">
        
         <div class="row">
-            <div class="col-lg-3 col-md-3 main-heading" >
+            <div class="col-lg-3 col-md-3 mx-0 main-heading" >
                 <div class="heading">
                     <div class=" d-flex align-items-center">
                     <img class="main-img i1 " src="images/copy.png" alt="Not Found" />
@@ -298,7 +336,7 @@ label {
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-6 login-box mx-auto">
+            <div class="col-lg-5 col-md-5 login-box mx-auto ">
                 <div class="col-lg-12 login-key">
                     <i class="fa fa-key" aria-hidden="true"></i>
                 </div>
@@ -334,9 +372,9 @@ label {
               
          
         </div>
-        <div class="col-lg-3 col-md-3 scol-3 " >
-            <div  class="signup  login-box d-flex justify-content-center align-items-center login-box1"   style="flex-direction: column;">
-                <p style="text-decoration: underline;text-underline-offset: 0.5em;" class="text-white  "> Need an account ? <span class="d-inline-block m-2 btn btn-sm btn-success su">Register</span></p>
+        <div class="lcol col-lg-3 col-md-4 mx-auto ">
+            <div  class="signup login-box d-flex justify-content-center align-items-center login-box1 px-1 pt-3"   style="flex-direction: column;">
+                <p style="text-decoration: underline;text-underline-offset: 0.5em;" class="text-white lstart "> Need an account ? <span class="d-inline-block m-2 btn btn-sm btn-success su">Register</span></p>
                 <div class="forgot">
                     <p style="font-size:0.7em" class="btn btn-outline-primary su2">Forgot your password?</p>
                </div>
