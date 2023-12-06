@@ -36,9 +36,15 @@
     }
   }
 
+  .preserve-space{
 
-
-
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "Roboto",arial,sans-serif;
+  }
+.no-preserve-space{
+  white-space: normal;
+}
   .lds-facebook1 {
     display: inline-block;
     position: relative;
@@ -86,17 +92,14 @@
 
 
   .main-img{
-    width:2.3em;
+    width:1.7em;
     margin-right:10px;
   }
   .date1{
     font-size:0.9em
   }
   @media only screen and (max-width: 600px) {
-    .main-img{
-      width:1.8em;
-      margin-right:10px;
-    }
+   
     .date1{
       font-size:0.8em
     }
@@ -151,6 +154,7 @@
 }
 .main-input{
   border-radius:0%;padding-top:0.6em;padding-bottom:0.6em;
+  resize: none;
 }
 .main-buttons{
   justify-content: space-between;
@@ -160,6 +164,10 @@
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+  font-size: 1.6em;
+  font-weight: 500;
+  letter-spacing: 1px;
+
 }
 
 .l1:active{

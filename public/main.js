@@ -196,6 +196,7 @@ async function getText(isError = false, isSuccess = false, secret = "nothere") {
 
       data.forEach((text) => {
         let li = document.createElement("li");
+       
         li.textContent = text.text;
        
         li.dataset.id = text._id;
@@ -298,7 +299,8 @@ list.addEventListener("DOMNodeInserted", function (event) {
           "mb-2",
           "alert",
           "alert-danger",
-          "hover5"
+          "hover5",
+        
         );
         newNode.addEventListener("click", () => {
           window.open("/", "_self");
@@ -329,12 +331,12 @@ list.addEventListener("DOMNodeInserted", function (event) {
       "pe-1",
       "mb-2",
       "w-100",
-      "text-wrap",
-      "text-break"
+ 
+      'preserve-space'
     );
 
     let text = newNode.textContent.trim();
-    newNode.innerHTML += `<span style="flex-shrink:0" class='d-flex ps-3 before1'><span class="d-none d-md-inline text-muted contain date1 pe-2">${newNode.dataset.date}</span><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-clipboard me-2 copy" viewBox="0 0 16 16">
+    newNode.innerHTML += `<span style="flex-shrink:0" class='d-flex ps-3 before1  no-preserve-space'><span class="d-none d-md-inline text-muted contain date1 pe-2">${newNode.dataset.date}</span><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-clipboard me-2 copy" viewBox="0 0 16 16">
 <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
 <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
 </svg>
@@ -812,7 +814,7 @@ let reset = document.querySelector("#reset");
 reset.addEventListener("click", (e) => {
   list.innerHTML = " ";
   loader.style.display = "inline-block";
-  let text = document.querySelector('input[name="text"]');
+  let text = document.querySelector('textarea[name="text"]');
   e.preventDefault();
   fetch("deletetext")
     .then((res) => res.json())
@@ -830,11 +832,12 @@ reset.addEventListener("click", (e) => {
 });
 let isInProgess = false;
 
+
 let submit = document.querySelector('input[type="submit"]');
 
 submit.addEventListener("click", (e) => {
 
- let text = document.querySelector('input[name="text"]');
+ let text = document.querySelector('textarea[name="text"]');
 
  if(text.value.includes('/n')){
 
@@ -852,9 +855,34 @@ submit.addEventListener("click", (e) => {
 
 let subdata = null;
 
+ 
+let text = document.querySelector('textarea[name="text"]');
+text.addEventListener('input', autoExpand);
+text.addEventListener('paste', autoExpand);
+
+function autoExpand() {
+  // Use a slight delay to allow the content to be updated after paste
+  setTimeout(() => {
+    if (text.scrollHeight <= 150) {
+      text.style.height = 'auto';
+      text.style.height = text.scrollHeight + 'px';
+      text.style.overflow = 'hidden';
+    } else {
+      text.style.height = '150px'; // Set to the max height
+      text.style.overflow = 'auto';
+    }
+  }, 10);
+}
+
+
+
+
+
+
 form.addEventListener("submit", (e) => {
  
-  let text = document.querySelector('input[name="text"]');
+
+  let text = document.querySelector('textarea[name="text"]');
   e.preventDefault();
 
   if (isInProgess ) {
@@ -895,6 +923,8 @@ form.addEventListener("submit", (e) => {
     {
       isInProgess = false;
       text.value = "";
+      text.style.overflow = 'auto';
+      text.style.height = 'auto';
       submit.classList.remove("disabled");
     return res.json();
      
@@ -955,27 +985,19 @@ heading.forEach((e) => {
 });
 
 let eventSource;
-let errorRetries = 0;
 
 function connectToEventSource() {
-  if (errorRetries >= 30) {
-    return;
-  }
+
   eventSource = new EventSource('/data-updates');
 
   eventSource.onmessage = (event) => {
-    errorRetries = 0; // Reset retry count on successful connection
     getText();
   };
 
   eventSource.onerror = (error) => {
-    errorRetries++;
+ 
     console.error('Error connecting to SSE:');
-   
-    // Attempt to reconnect after a delay (e.g., 2 seconds)
-    setTimeout(() => {
-      connectToEventSource();
-    }, 2000);
+
   };
 }
 

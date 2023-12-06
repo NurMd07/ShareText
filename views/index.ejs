@@ -53,7 +53,7 @@
     <div
       class="heading m-4 mt-4 mt-md-4 mb-4 d-flex justify-content-center align-items-center"
     >
-      <img class="main-img l1 i1" src="images/copy.png" alt="Not Found" />
+      <img class="main-img i1" src="images/copy.png" alt="Not Found" />
       <h1 class="pt-2 pt-md-1 l1">Share Text</h1>
       <button id="popup-btn" class="btn btn-sm btn-secondary d-flex px-1">
         <svg
@@ -124,14 +124,16 @@
     <div class="container mb-5">
       <form class="mb-3" name="form1" action="#" method="POST">
         <div class="mb-4 mb-md-4 row justify-content-center">
-          <div class="col-11 col-md-8 inpz2" style="position: relative;">
-            <input
+          <div class="col-11 col-md-11 col-lg-9 col-xl-8 inpz2" style="position: relative;">
+            <textarea
               class="form-control ps-3 main-input"
               type="text"
               name="text"
               placeholder="Enter text here"
-            />
-
+              rows="1"
+              
+            >
+</textarea>
           
           <!-- Button trigger modal -->
 <button type="button" class="visually-hidden command w-0 h-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -203,7 +205,7 @@
             <input
               role="button"
               aria-label="submit"
-              class="btn btn-primary"
+              class="btn btn-primary px-3 ms-2 ms-lg-4"
               type="submit"
               value="Submit"
             />
@@ -213,6 +215,7 @@
               aria-label="reset"
               class="btn btn-danger rounded-circle px-1 py-1 d-flex justify-content-center align-items-center"
               id="reset"
+           
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

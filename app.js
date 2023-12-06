@@ -364,15 +364,23 @@ app.get('/verify-email/:token', async (req, res) => {
     }
 
     if (user.verifyEmailToken(token)) {
-      jwt.verify(token,process.env.SECRET); // Replace with your actual secret key
-
+      jwt.verify(token,process.env.SECRET); 
       user.isEmailVerified = true;
+
       // user.emailVerificationToken = undefined; // Clear the token after verification
       user.expires =  '2999-12-31T18:30:00.000Z';
-
+     let text = new Text({text:'Install this website as an app for best experience! ( near search-bar install button will be shown )',user:user._id,important:true});
+     if (!user.texts || user.texts.length === 0) {
+      // Initialize the texts array if not present
+      user.texts = [];
+    }
+      await text.save();
+      user.texts.push(text._id)
+   
       await user.save();
 
       res.render("verify-success");
+
     } else {
       res.status(400).json({ message: 'Invalid token' });
     }
@@ -473,7 +481,6 @@ if(!emailVerificationToken){
   };
 
  req.session.lastRequestTime = Date.now();
-
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending email:', error);
@@ -735,6 +742,7 @@ app.get("/gettext", async (req, res, next) => {
       text = await Text.find({user: userid}).sort({ pin: -1, created: -1 });
     } else {
       text = await Text.find({  user: userid ,hidden: false }).sort({ pin: -1, created: -1 });
+   
     }
 
     const newText = [];
@@ -883,7 +891,7 @@ let text1 = req.body.text.trim();
         { $push: { texts: { $each:  textobjectids } } });
     }else{
       
-      
+     
 
      text = new Text(req.body);
     
