@@ -709,7 +709,7 @@ app.get('/data-updates', (req, res) => {
  
     const data = JSON.stringify(change);
     res.write(`data: ${data}\n\n`);
-   
+
   });
 
   // Handle SSE client disconnect
@@ -717,6 +717,7 @@ app.get('/data-updates', (req, res) => {
     changeStream.close();
     res.end();
   });
+
 });
 
 

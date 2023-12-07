@@ -121,10 +121,10 @@
     </div>
 
  
-    <div class="container mb-5">
+    <div class="container-fluid mb-5">
       <form class="mb-3" name="form1" action="#" method="POST">
         <div class="mb-4 mb-md-4 row justify-content-center">
-          <div class="col-11 col-md-11 col-lg-9 col-xl-8 inpz2" style="position: relative;">
+          <div class="col-11 col-md-8 col-lg-8 col-xl-7 inpz2" style="position: relative;">
             <textarea
               class="form-control ps-3 main-input"
               type="text"
@@ -197,15 +197,16 @@
 
           </div>
         </div>
-        <div class="row justify-content-center align-items-center">
+        <div class="col-12 gx-0 row justify-content-center align-items-center ">
+        <div class="col-11 col-md-8 col-lg-8 col-xl-7 row justify-content-center align-items-center gx-0 ">
           <div
-            class="col-12 col-md-8 p-0 pe-4 pe-md-2 d-flex align-items-center main-buttons"
+            class="d-flex align-items-center main-buttons"
           >
-            <div class="ps-5 ps-md-0"></div>
+            <div class="mx-3"></div>
             <input
               role="button"
               aria-label="submit"
-              class="btn btn-primary px-3 ms-2 ms-lg-4"
+              class="btn btn-primary "
               type="submit"
               value="Submit"
             />
@@ -213,9 +214,10 @@
               type="button"
               role="button"
               aria-label="reset"
-              class="btn btn-danger rounded-circle px-1 py-1 d-flex justify-content-center align-items-center"
+              class="btn btn-danger rounded-circle d-flex justify-content-center align-items-center "
               id="reset"
-           
+           style="padding-left:0.45em;
+           padding-right:0.45em;"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -244,6 +246,8 @@
             </button>
           </div>
         </div>
+
+      </div>
       </form>
       <div class="loader-contain me-md-4">
         <div class="lds-facebook">
@@ -252,7 +256,8 @@
           <div></div>
         </div>
       </div>
-      <ul class="list-group px-2 px-md-3 mt-4 mt-md-5 maincontent1"></ul>
+      
+      <ul class="list-group col-md-10 col-lg-10 mx-auto px-2 px-md-3 mt-4 mt-md-5 maincontent1"></ul>
     </div>
 
     <script src="main.js"></script>
