@@ -83,14 +83,6 @@
   }
 
 
-
-
-
-
-
-
-
-
   .main-img{
     width:1.7em;
     margin-right:10px;
@@ -120,6 +112,23 @@
  
 }
 
+.clearbtn{
+  position: absolute;
+  right:-0.2em;
+  top:50%;
+  opacity: 0.9;
+ z-index: 99;
+}
+#reset{
+  border-radius: 2em 1em 1em 2em;
+}
+
+.maincontent1{
+  overflow-y:auto;
+  max-height:70vh;
+  padding-bottom: 2em;
+}
+
 @media screen and (min-width: 600px) {
   .copy:hover{
     color:  rgb(255, 0, 221)
@@ -135,10 +144,34 @@
        color: rgb(162, 0, 255) 
     
    }
-
+   .clearbtn{
+    position: absolute;
+    top:3.4em;
+    right: 1em;
+    opacity: 0.9;
+    
+  }
+  .maincontent1{
+    overflow-y:auto;
+    max-height:63vh;
+    padding-bottom: 2em;
+  }
+  
 }
-
-
+@media screen and (min-width: 900px) {
+  .clearbtn{
+    position: absolute;
+    top:3.8em;
+    right: 1em;
+    opacity: 0.9;
+    
+}
+.maincontent1{
+  overflow-y:auto;
+  max-height:65vh;
+  padding-bottom: 2em;
+}
+}
 .loader-contain{
   display: flex;
   justify-content: center;
@@ -153,12 +186,21 @@
  color:black
 }
 .main-input{
-  border-radius:0%;padding-top:0.6em;padding-bottom:0.6em;
+  border-radius:1em;padding-top:0.6em;padding-bottom:0.6em;
   resize: none;
+  border:2px solid #909497;
 }
-.main-buttons{
-  justify-content: space-between;
+
+.sb1{
+  border-radius:40%;
+  width: 2.9em;
+  height: 2.9em;
+  margin-left: 0.1em;
+display:flex;
+justify-content: center;
+align-items: center;
 }
+
 .l1{
   cursor:pointer;
   -webkit-user-select: none; /* Safari */
@@ -249,6 +291,7 @@
 }
 #popup-btn{
   position: absolute;right:1.2em;top:1.3em;color:white;border-radius: 1em;opacity: 0.7;
+
 }
 
 

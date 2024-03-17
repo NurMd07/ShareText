@@ -23,6 +23,7 @@ let popupContainer = document
   .querySelector(".popup-content");
 
 let dark = () => {
+
   document.body.style.backgroundColor = "#292929";
   document.querySelector(".heading").style.color = "white";
 
@@ -48,6 +49,7 @@ let dark = () => {
   updateThemeColor('#292929')
 };
 let light = () => {
+
   document.body.style.backgroundColor = "white";
   document.querySelector(".heading").style.color = "black";
   darkmodetext.innerHTML = `Dark <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill ms-2" viewBox="0 0 16 16">
@@ -833,7 +835,7 @@ reset.addEventListener("click", (e) => {
 let isInProgess = false;
 
 
-let submit = document.querySelector('input[type="submit"]');
+let submit = document.querySelector('button[type="submit"]');
 
 submit.addEventListener("click", (e) => {
 
@@ -865,7 +867,7 @@ function autoExpand() {
   setTimeout(() => {
     if (text.scrollHeight <= 150) {
       text.style.height = 'auto';
-      text.style.height = text.scrollHeight + 'px';
+      text.style.height = text.scrollHeight + 4 + 'px';
       text.style.overflow = 'hidden';
     } else {
       text.style.height = '150px'; // Set to the max height
