@@ -125,8 +125,10 @@
 
 .maincontent1{
   overflow-y:auto;
+padding-bottom:30vh !important;
   max-height:70vh;
   padding-bottom: 2em;
+
 }
 
 @media screen and (min-width: 600px) {
