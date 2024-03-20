@@ -5,96 +5,88 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Share Text</title>
-   
 
-    
     <link
       href="cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_css_bootstrap.min.css"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="main.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
- 
 
-   <% if(darkmode){ %>
-  <script>
- let darkmode = true;
-  </script>
-<style>
-  body{
-    background-color: #292929 ;
-  }
+    <% if(darkmode){ %>
+    <script>
+      let darkmode = true;
+    </script>
+    <style>
+      body {
+        background-color: #292929;
+      }
+    </style>
 
-</style>
+    <% }else{ %>
 
- <%  }else{  %>
-  
-  <script>
-    let darkmode = false;
-     </script>
-  <style>
- body{
+    <script>
+      let darkmode = false;
+    </script>
+    <style>
+      body {
+        background-color: #fff;
+      }
+    </style>
+    <% } %>
 
-  background-color: #fff ;
+    <link rel="manifest" href="site.webmanifest" />
+    <meta
+      name="theme-color"
+      id="theme-color"
+      content="<%= darkmode ? '#292929' : '#fff' %>"
+    />
 
-} 
-</style>
-   <%    }  %>
- 
-   <link rel="manifest" href="site.webmanifest" />
-   <meta name="theme-color" id="theme-color" content="<%= darkmode ? '#292929' : '#fff' %>">
-
-   <meta name="description" content="Share text - fast and easy" />
-
+    <meta name="description" content="Share text - fast and easy" />
   </head>
   <body>
-     
-    
     <div
       class="heading m-4 mt-4 mt-md-4 mb-4 d-flex justify-content-center align-items-center"
     >
       <img class="main-img i1" src="images/copy.png" alt="Not Found" />
       <h1 class="pt-2 pt-md-1 l1">Share Text</h1>
-      <div
-      class="clearbtn"
-    >
- 
-      <button
-        type="button"
-        role="button"
-        aria-label="reset"
-        class="btn btn-danger d-flex justify-content-center align-items-center "
-        id="reset"
-     style="padding-left:0.45em;
-     padding-right:0.45em;"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="12"
-          fill="currentColor"
-          class="bi bi-trash2 empty"
-          viewBox="0 0 16 16"
+      <div class="clearbtn">
+        <button
+          type="button"
+          role="button"
+          aria-label="reset"
+          class="btn btn-danger d-flex justify-content-center align-items-center"
+          id="reset"
+          style="padding-left: 0.45em; padding-right: 0.45em"
         >
-          <path
-            d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"
-          /></svg
-        ><svg
-        style="display: none;"
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="12"
-          fill="currentColor"
-          class="bi bi-trash2-fill fill"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
-          />
-        </svg>
-      </button>
-    </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            fill="currentColor"
+            class="bi bi-trash2 empty"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"
+            /></svg
+          ><svg
+            style="display: none"
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            fill="currentColor"
+            class="bi bi-trash2-fill fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
+            />
+          </svg>
+        </button>
+      </div>
 
       <button id="popup-btn" class="btn btn-sm btn-secondary d-flex px-1">
         <svg
@@ -109,7 +101,6 @@
             d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
           />
         </svg>
-
       </button>
     </div>
 
@@ -117,10 +108,7 @@
 
     <div id="popup-wrapper" class="popup-container">
       <div class="popup-content" style="position: relative">
-        <button
-          
-          class="btn btn-sm btn-danger logout1"
-        >
+        <button class="btn btn-sm btn-danger logout1">
           logout
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -138,30 +126,24 @@
               fill-rule="evenodd"
               d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
             />
-          </svg></button
-        >
-    <script>
-     
-      let logout1 = document.querySelector('.logout1');
-      logout1.addEventListener('click',()=>{
-
-        window.open('logout','_self');
-      })
-    </script>
+          </svg>
+        </button>
+        <script>
+          let logout1 = document.querySelector(".logout1");
+          logout1.addEventListener("click", () => {
+            window.open("logout", "_self");
+          });
+        </script>
         <span
           id="darkmodetext"
           style="font-size: 1em"
           class="d-flex justify-content-center align-items-center no-select me-2"
         ></span>
-               <span class="d-inline" id="close">&times;</span>
-
-      
+        <span class="d-inline" id="close">&times;</span>
       </div>
     </div>
 
- 
-    <div class="container-fluid mb-5">
-
+    <div class="container-fluid mb-5 gx-0">
       <div class="loader-contain me-md-4">
         <div class="lds-facebook">
           <div></div>
@@ -169,100 +151,212 @@
           <div></div>
         </div>
       </div>
-      
-      <ul class="list-group col-md-11 col-lg-11 col-xl-9 mx-auto  mt-1 maincontent1"></ul>
+
+      <ul
+        class="list-group col-md-11 col-lg-11 col-xl-9 mx-auto mt-1 px-3 px-md-2 maincontent1"
+      ></ul>
     </div>
 
     <form class="mb-3" name="form1" action="#" method="POST">
-      <div class="row justify-content-center mx-0" style="position: fixed;bottom:2em;width: 100%;">
-        <div class="col-10 col-md-9 col-lg-9 col-xl-8 inpz2" style="position: relative;">
+      <div
+        class="row justify-content-center mx-0"
+        style="position: fixed; bottom: 2em; width: 100%"
+      >
+        <div
+          class="col-10 col-md-9 col-lg-9 col-xl-8 inpz2"
+          style="position: relative"
+        >
           <textarea
             class="form-control ps-3 main-input"
             type="text"
             name="text"
             placeholder="Enter text here"
             rows="1"
-            
-          >
-</textarea>
-
+          ></textarea>
         </div>
         <button
-  role="button"
-  aria-label="submit"
-  class="btn btn-primary col-1 sb1"
-  type="submit"
-  
->
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
-  <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
-</svg>
-</button>
-
+          role="button"
+          aria-label="submit"
+          class="btn btn-primary col-1 sb1"
+          type="submit"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-caret-right"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"
+            />
+          </svg>
+        </button>
       </div>
-
-       
-
-
     </form>
-    <button type="button" class="visually-hidden tipinfo w-0 h-0" data-bs-toggle="modal" data-bs-target="#exampleModal98">
+    <button
+      type="button"
+      class="visually-hidden tipinfo w-0 h-0"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal98"
+    ></button>
 
-    </button>
-    
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal98" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal98"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5 text-center d-flex justify-content-center align-items-center" id="exampleModalLabel"> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
-              <path fill="#FFF59D" d="M24 2A20 20 0 1 0 24 42A20 20 0 1 0 24 2Z"></path><path fill="#FBC02D" d="M37,22c0-7.7-6.6-13.8-14.5-12.9c-6,0.7-10.8,5.5-11.4,11.5c-0.5,4.6,1.4,8.7,4.6,11.3c1.4,1.2,2.3,2.9,2.3,4.8V37h12v-0.1c0-1.8,0.8-3.6,2.2-4.8C35.1,29.7,37,26.1,37,22z"></path><path fill="#FFF59D" d="M30.6,20.2l-3-2c-0.3-0.2-0.8-0.2-1.1,0L24,19.8l-2.4-1.6c-0.3-0.2-0.8-0.2-1.1,0l-3,2c-0.2,0.2-0.4,0.4-0.4,0.7s0,0.6,0.2,0.8l3.8,4.7V37h2V26c0-0.2-0.1-0.4-0.2-0.6l-3.3-4.1l1.5-1l2.4,1.6c0.3,0.2,0.8,0.2,1.1,0l2.4-1.6l1.5,1l-3.3,4.1C25.1,25.6,25,25.8,25,26v11h2V26.4l3.8-4.7c0.2-0.2,0.3-0.5,0.2-0.8S30.8,20.3,30.6,20.2z"></path><path fill="#5C6BC0" d="M24 41A3 3 0 1 0 24 47A3 3 0 1 0 24 41Z"></path><path fill="#9FA8DA" d="M26,45h-4c-2.2,0-4-1.8-4-4v-5h12v5C30,43.2,28.2,45,26,45z"></path><path fill="#5C6BC0" d="M30 41l-11.6 1.6c.3.7.9 1.4 1.6 1.8l9.4-1.3C29.8 42.5 30 41.8 30 41zM18 38.7L18 40.7 30 39 30 37z"></path>
-              </svg> Tips</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h1
+              class="modal-title fs-5 text-center d-flex justify-content-center align-items-center"
+              id="exampleModalLabel"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="30"
+                height="30"
+                viewBox="0 0 48 48"
+              >
+                <path
+                  fill="#FFF59D"
+                  d="M24 2A20 20 0 1 0 24 42A20 20 0 1 0 24 2Z"
+                ></path>
+                <path
+                  fill="#FBC02D"
+                  d="M37,22c0-7.7-6.6-13.8-14.5-12.9c-6,0.7-10.8,5.5-11.4,11.5c-0.5,4.6,1.4,8.7,4.6,11.3c1.4,1.2,2.3,2.9,2.3,4.8V37h12v-0.1c0-1.8,0.8-3.6,2.2-4.8C35.1,29.7,37,26.1,37,22z"
+                ></path>
+                <path
+                  fill="#FFF59D"
+                  d="M30.6,20.2l-3-2c-0.3-0.2-0.8-0.2-1.1,0L24,19.8l-2.4-1.6c-0.3-0.2-0.8-0.2-1.1,0l-3,2c-0.2,0.2-0.4,0.4-0.4,0.7s0,0.6,0.2,0.8l3.8,4.7V37h2V26c0-0.2-0.1-0.4-0.2-0.6l-3.3-4.1l1.5-1l2.4,1.6c0.3,0.2,0.8,0.2,1.1,0l2.4-1.6l1.5,1l-3.3,4.1C25.1,25.6,25,25.8,25,26v11h2V26.4l3.8-4.7c0.2-0.2,0.3-0.5,0.2-0.8S30.8,20.3,30.6,20.2z"
+                ></path>
+                <path
+                  fill="#5C6BC0"
+                  d="M24 41A3 3 0 1 0 24 47A3 3 0 1 0 24 41Z"
+                ></path>
+                <path
+                  fill="#9FA8DA"
+                  d="M26,45h-4c-2.2,0-4-1.8-4-4v-5h12v5C30,43.2,28.2,45,26,45z"
+                ></path>
+                <path
+                  fill="#5C6BC0"
+                  d="M30 41l-11.6 1.6c.3.7.9 1.4 1.6 1.8l9.4-1.3C29.8 42.5 30 41.8 30 41zM18 38.7L18 40.7 30 39 30 37z"
+                ></path>
+              </svg>
+              Tips
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <p> <strong>1. Adding Multiple texts At Once : </strong><br><span style="font-family:Georgia, serif"><small> Use /n  between each text if u want to share multiple texts at once and want it to be seperated e.g this is first text /n this is second . this two will added as a seperate text. no need of space when using /n u can use direct use /n like this is first/n  without any space.</small></span> </p>
-
-              </div>
+            <p>
+              <strong>1. Adding Multiple texts At Once : </strong><br /><span
+                style="font-family: Georgia, serif"
+                ><small>
+                  Use /n between each text if u want to share multiple texts at
+                  once and want it to be seperated e.g this is first text /n
+                  this is second . this two will added as a seperate text. no
+                  need of space when using /n u can use direct use /n like this
+                  is first/n without any space.</small
+                ></span
+              >
+            </p>
+          </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
     </div>
 
+    <button
+      type="button"
+      class="visually-hidden command w-0 h-0"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    ></button>
 
-    <button type="button" class="visually-hidden command w-0 h-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-
-    </button>
-    
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">All Commands </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-       <p>  <strong> !commands</strong> - Show of all commands   </p>
-           <p>  <strong>  !restore </strong> - Restore all deleted notes (last 24 hours )   </p>
-        <p> <strong>   !removebackups </strong>  - Remove all backup notes (notes gets autobackup when added and gets deleted automatically from backups prior 24 hours)    </p> 
-       
-            <p>  <strong>   !=$text </strong> - Add a hidden note (replace $text with what you want to hide. e.g !=this is my hidden text)      </p> 
-            <p> <strong>  ! </strong> - Show all hidden notes (type only `!` and submit)    </p> 
-              <p> <strong>    !removehidden</strong>  - Remove all hidden notes (hidden notes dont get deleted by normal delete so use this to remove hidden)    </p> 
-      <p><strong>*Type Commands where you add normal text and submit.</strong></p>
-    
-            </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
+              All Commands
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p><strong> !commands</strong> - Show of all commands</p>
+            <p>
+              <strong> !restore </strong> - Restore all deleted notes (last 24
+              hours )
+            </p>
+            <p>
+              <strong> !removebackups </strong> - Remove all backup notes (notes
+              gets autobackup when added and gets deleted automatically from
+              backups prior 24 hours)
+            </p>
+
+            <p>
+              <strong> !=$text </strong> - Add a hidden note (replace $text with
+              what you want to hide. e.g !=this is my hidden text)
+            </p>
+            <p>
+              <strong> ! </strong> - Show all hidden notes (type only `!` and
+              submit)
+            </p>
+            <p>
+              <strong> !removehidden</strong> - Remove all hidden notes (hidden
+              notes dont get deleted by normal delete so use this to remove
+              hidden)
+            </p>
+            <p>
+              <strong
+                >*Type Commands where you add normal text and submit.</strong
+              >
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-    
 
     <script src="main.js"></script>
     <script src="script1.js"></script>
@@ -283,10 +377,6 @@
             });
         });
       }
-
-
-
-
     </script>
   </body>
 </html>

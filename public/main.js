@@ -8,22 +8,18 @@ let isDarkLocal = localStorage.getItem("darkmode");
 let darkmodetext = document.querySelector("#darkmodetext");
 
 // Get a reference to the theme color meta tag
-const themeColorMeta = document.querySelector('#theme-color');
+const themeColorMeta = document.querySelector("#theme-color");
 
 // Function to update the theme color
 function updateThemeColor(newColor) {
-  themeColorMeta.setAttribute('content', newColor);
+  themeColorMeta.setAttribute("content", newColor);
 }
-
-
-
 
 let popupContainer = document
   .getElementById("popup-wrapper")
   .querySelector(".popup-content");
 
 let dark = () => {
-
   document.body.style.backgroundColor = "#292929";
   document.querySelector(".heading").style.color = "white";
 
@@ -46,10 +42,9 @@ let dark = () => {
     }
   });
   document.cookie = "darkmode=true";
-  updateThemeColor('#292929')
+  updateThemeColor("#292929");
 };
 let light = () => {
-
   document.body.style.backgroundColor = "white";
   document.querySelector(".heading").style.color = "black";
   darkmodetext.innerHTML = `Dark <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill ms-2" viewBox="0 0 16 16">
@@ -74,10 +69,10 @@ let light = () => {
     }
   });
   document.cookie = "darkmode=false";
-  updateThemeColor('#fff')
+  updateThemeColor("#fff");
 };
 
-if ( isDarkLocal === "true") {
+if (isDarkLocal === "true") {
   dark();
 } else {
   light();
@@ -95,53 +90,39 @@ darkmodetext.addEventListener("click", () => {
   }
 });
 
+let random1 = Math.floor(Math.random() * 8);
 
-let random1 = Math.floor(Math.random()*8)
-
-if(random1==4){
-  let random2 = Math.floor(Math.random()*2);
+if (random1 == 4) {
+  let random2 = Math.floor(Math.random() * 2);
   let inpz = document.querySelector(".inpz2");
-  if(random2==0){
+  if (random2 == 0) {
     let tipinfo = document.querySelector(".tipinfo");
-    let svg = document.createElement('span');
+    let svg = document.createElement("span");
     svg.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0 0 48 48">
     <path fill="#FFF59D" d="M24 2A20 20 0 1 0 24 42A20 20 0 1 0 24 2Z"></path><path fill="#FBC02D" d="M37,22c0-7.7-6.6-13.8-14.5-12.9c-6,0.7-10.8,5.5-11.4,11.5c-0.5,4.6,1.4,8.7,4.6,11.3c1.4,1.2,2.3,2.9,2.3,4.8V37h12v-0.1c0-1.8,0.8-3.6,2.2-4.8C35.1,29.7,37,26.1,37,22z"></path><path fill="#FFF59D" d="M30.6,20.2l-3-2c-0.3-0.2-0.8-0.2-1.1,0L24,19.8l-2.4-1.6c-0.3-0.2-0.8-0.2-1.1,0l-3,2c-0.2,0.2-0.4,0.4-0.4,0.7s0,0.6,0.2,0.8l3.8,4.7V37h2V26c0-0.2-0.1-0.4-0.2-0.6l-3.3-4.1l1.5-1l2.4,1.6c0.3,0.2,0.8,0.2,1.1,0l2.4-1.6l1.5,1l-3.3,4.1C25.1,25.6,25,25.8,25,26v11h2V26.4l3.8-4.7c0.2-0.2,0.3-0.5,0.2-0.8S30.8,20.3,30.6,20.2z"></path><path fill="#5C6BC0" d="M24 41A3 3 0 1 0 24 47A3 3 0 1 0 24 41Z"></path><path fill="#9FA8DA" d="M26,45h-4c-2.2,0-4-1.8-4-4v-5h12v5C30,43.2,28.2,45,26,45z"></path><path fill="#5C6BC0" d="M30 41l-11.6 1.6c.3.7.9 1.4 1.6 1.8l9.4-1.3C29.8 42.5 30 41.8 30 41zM18 38.7L18 40.7 30 39 30 37z"></path>
-    </svg> `
-    svg.style="position:absolute;right:1.5em;top:15%";
+    </svg> `;
+    svg.style = "position:absolute;right:1.5em;top:15%";
     svg.classList.add("d-flex", "justify-content-center", "align-items-center");
     svg.addEventListener("click", () => {
-tipinfo.click();
-
+      tipinfo.click();
     });
     inpz.appendChild(svg);
+  } else {
+    let cmd = document.createElement("span");
+    let img = document.createElement("img");
 
-  }else{
-
-
-let cmd = document.createElement('span');
-let img = document.createElement('img');
-
-cmd.style="position:absolute;right:1.5em;top:15%";
-cmd.classList.add("d-flex", "justify-content-center", "align-items-center");
-img.style.width = "1.8em";
-img.src = "command.png";
-cmd.appendChild(img);
-inpz.appendChild(cmd);
-let command = document.querySelector(".command");
-cmd.addEventListener("click", () => {
-
-  command.click();
-
-});
+    cmd.style = "position:absolute;right:1.5em;top:15%";
+    cmd.classList.add("d-flex", "justify-content-center", "align-items-center");
+    img.style.width = "1.8em";
+    img.src = "command.png";
+    cmd.appendChild(img);
+    inpz.appendChild(cmd);
+    let command = document.querySelector(".command");
+    cmd.addEventListener("click", () => {
+      command.click();
+    });
   }
-
 }
-
-
-
-
-
-
 
 function Empty() {
   fill.style.display = "none";
@@ -170,10 +151,10 @@ async function getText(isError = false, isSuccess = false, secret = "nothere") {
 </svg></span>`;
         li.classList.add("error");
         list.insertBefore(li, list.childNodes[0]);
-    
+
         return;
       }
- 
+
       if (isError) {
         let li = document.createElement("li");
         li.style.cursor = "pointer";
@@ -198,9 +179,9 @@ async function getText(isError = false, isSuccess = false, secret = "nothere") {
 
       data.forEach((text) => {
         let li = document.createElement("li");
-       
+
         li.textContent = text.text;
-       
+
         li.dataset.id = text._id;
         li.dataset.important = text.important;
         li.dataset.date = text.created;
@@ -301,8 +282,7 @@ list.addEventListener("DOMNodeInserted", function (event) {
           "mb-2",
           "alert",
           "alert-danger",
-          "hover5",
-        
+          "hover5"
         );
         newNode.addEventListener("click", () => {
           window.open("/", "_self");
@@ -333,8 +313,8 @@ list.addEventListener("DOMNodeInserted", function (event) {
       "pe-1",
       "mb-2",
       "w-100",
- 
-      'preserve-space'
+
+      "preserve-space"
     );
 
     let text = newNode.textContent.trim();
@@ -372,9 +352,9 @@ list.addEventListener("DOMNodeInserted", function (event) {
 </ul>
 </div>
 
-</span><svg style="position:absolute;right:-0.6em;top:-0.5em;display:none" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star-fill text-info pinstar " viewBox="0 0 16 16">
+</span><svg style="position:absolute;right:-0.5em;top:-0.5em;display:none" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star-fill text-info pinstar " viewBox="0 0 16 16">
 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-</svg><svg style="position:absolute;right:-0.6em;top:0.3em;display:none" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pin-angle-fill text-danger pinicon" viewBox="0 0 16 16">
+</svg><svg style="position:absolute;right:-0.5em;top:0.3em;display:none" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pin-angle-fill text-danger pinicon" viewBox="0 0 16 16">
 <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 0 .707c-.48.48-1.072.588-1.503.588-.177 0-.335-.018-.46-.039l-3.134 3.134a5.927 5.927 0 0 1 .16 1.013c.046.702-.032 1.687-.72 2.375a.5.5 0 0 1-.707 0l-2.829-2.828-3.182 3.182c-.195.195-1.219.902-1.414.707-.195-.195.512-1.22.707-1.414l3.182-3.182-2.828-2.829a.5.5 0 0 1 0-.707c.688-.688 1.673-.767 2.375-.72a5.922 5.922 0 0 1 1.013.16l3.134-3.133a2.772 2.772 0 0 1-.04-.461c0-.43.108-1.022.589-1.503a.5.5 0 0 1 .353-.146z"/>
 </svg>`;
 
@@ -383,17 +363,14 @@ list.addEventListener("DOMNodeInserted", function (event) {
         item.classList.toggle("d-none");
         item.style.display = "inline-block";
       });
-    
 
-        newNode.parentNode.querySelectorAll('.maincontent1 > li').forEach((li) => {
-        if(  li.querySelector('.etext')){
-          li.querySelector('.etext').style.height=li.offsetHeight+"px";
-        }
-
+      newNode.parentNode
+        .querySelectorAll(".maincontent1 > li")
+        .forEach((li) => {
+          if (li.querySelector(".etext")) {
+            li.querySelector(".etext").style.height = li.offsetHeight + "px";
+          }
         });
-     
-       
-
     });
 
     const contain = newNode.querySelector(".contain");
@@ -405,25 +382,21 @@ list.addEventListener("DOMNodeInserted", function (event) {
 <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
 </svg> `;
 
-
-           let tempElement = document.createElement('div');
+      let tempElement = document.createElement("div");
       tempElement.innerHTML = newNode.innerHTML;
 
-  while (tempElement.firstElementChild) {
- 
-    tempElement.removeChild(tempElement.lastElementChild);
-   
-  }
-  navigator.clipboard.writeText(tempElement.textContent.trim());
+      while (tempElement.firstElementChild) {
+        tempElement.removeChild(tempElement.lastElementChild);
+      }
+      navigator.clipboard.writeText(tempElement.textContent.trim());
       let ctext = tempElement.textContent.trim();
 
       let TempText = document.createElement("input");
-   
+
       TempText.value = ctext;
-   
+
       document.body.appendChild(TempText);
       TempText.select();
-
 
       document.execCommand("copy");
       document.body.removeChild(TempText);
@@ -438,137 +411,125 @@ list.addEventListener("DOMNodeInserted", function (event) {
       }, 2000);
     });
 
-
-let edit = newNode.querySelector(".edit");
+    let edit = newNode.querySelector(".edit");
 
     edit.addEventListener("click", function (e) {
-      
       let ele2 = document.createElement("div");
       let inp1 = document.createElement("textarea");
       let btn0 = document.createElement("button");
       let btn9 = document.createElement("button");
       ele2.classList.add("input-group");
-      ele2.style = "position:absolute;width:101%;height:100%;left:-0.1em;top:-0.1em";
-      inp1.classList.add("form-control",'etext');
+      ele2.style =
+        "position:absolute;width:101%;height:100%;left:-0.1em;top:-0.1em;z-index:100;";
+      inp1.classList.add("form-control", "etext");
       inp1.setAttribute("type", "text");
       inp1.setAttribute("placeholder", "");
-   inp1.style.height=newNode.offsetHeight+"px";
-  
-     btn0.classList.add("btn", "btn-success");
-     btn0.setAttribute("type", "button");
-     btn0.innerHTML="Save";
-     btn9.classList.add("btn","btn-warning","text-white");
-     btn9.setAttribute("type", "button");
-     btn9.innerHTML="X";
- 
+      inp1.style.height = newNode.offsetHeight + "px";
+
+      btn0.classList.add("btn", "btn-success");
+      btn0.setAttribute("type", "button");
+      btn0.innerHTML = "Save";
+      btn9.classList.add("btn", "btn-warning", "text-white");
+      btn9.setAttribute("type", "button");
+      btn9.innerHTML = "X";
+
       ele2.appendChild(inp1);
       ele2.appendChild(btn0);
       ele2.appendChild(btn9);
       newNode.appendChild(ele2);
 
-        inp1.focus();
-  
+      inp1.focus();
 
-     inp1.value=newNode.querySelector('.before1').previousSibling.textContent.trim();
-     let isSaving = false;
-     btn0.addEventListener("click", function (e) {
-if(isSaving){
-  return;
-}
-      const loaderContain = document.createElement('div');
-      loaderContain.classList.add('loader-contain');
-      loaderContain.classList.add('me-md-4');
-      
-      // Create the lds-facebook1 div
-      const ldsFacebook1 = document.createElement('div');
-      ldsFacebook1.classList.add('lds-facebook1');
-      
-      // Create the three child divs within lds-facebook1
-      for (let i = 0; i < 3; i++) {
-        const childDiv = document.createElement('div');
-        ldsFacebook1.appendChild(childDiv);
-      }
-      
-      // Append the lds-facebook1 div to the loaderContain div
-      loaderContain.appendChild(ldsFacebook1);
-      
-
-
-newNode.parentNode.insertBefore(loaderContain, newNode.nextSibling);
-
-isSaving = true;
-
-      fetch("edit", {  
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: newNode.dataset.id, text: inp1.value }),
-      }).then((res) => {
-      
-        loaderContain.remove();
-        isSaving = false;
-        if (res.status !== 200) {
-          if (res.status === 400) {
-            return res.json().then((errorData) => {
-              throw new Error(errorData.msg); // Throw the error message as an Error object
-            });
-          } else {
-            throw new Error('Server Error');
-          }
+      inp1.value = newNode
+        .querySelector(".before1")
+        .previousSibling.textContent.trim();
+      let isSaving = false;
+      btn0.addEventListener("click", function (e) {
+        if (isSaving) {
+          return;
         }
-        return res.json();
-      }).then((data) => {
-        
-if(newNode.nextElementSibling.classList.contains('error')){
-  let nextSibling = newNode.nextElementSibling;
+        const loaderContain = document.createElement("div");
+        loaderContain.classList.add("loader-contain");
+        loaderContain.classList.add("me-md-4");
 
-while (nextSibling && nextSibling.classList.contains('error')) {
-  nextSibling.remove();
-  nextSibling = newNode.nextElementSibling;
-}
-}
-newNode.removeChild(ele2);
-newNode.classList.remove('editz')
-newNode.classList.remove('edit1')
-const textElement = newNode.querySelector('.before1').previousSibling;
-textElement.textContent = data.text.trim();
-newNode.classList.add('bg-success');
+        // Create the lds-facebook1 div
+        const ldsFacebook1 = document.createElement("div");
+        ldsFacebook1.classList.add("lds-facebook1");
 
-      }).catch((err) => {
+        // Create the three child divs within lds-facebook1
+        for (let i = 0; i < 3; i++) {
+          const childDiv = document.createElement("div");
+          ldsFacebook1.appendChild(childDiv);
+        }
 
-    if(err.message=="Please enter text"){
-      inp1.classList.add('is-invalid');
-      inp1.setAttribute('placeholder',err.message);
-    }else{
+        // Append the lds-facebook1 div to the loaderContain div
+        loaderContain.appendChild(ldsFacebook1);
 
-      let li = document.createElement("li");
-      li.style.cursor = "pointer";
-      li.innerHTML = `Something went wrong!<span class="ps-1 text-decoration-underline" style="font-size:0.9em;align-self:center">Reload<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="ms-1 bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+        newNode.parentNode.insertBefore(loaderContain, newNode.nextSibling);
+
+        isSaving = true;
+
+        fetch("edit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: newNode.dataset.id, text: inp1.value }),
+        })
+          .then((res) => {
+            loaderContain.remove();
+            isSaving = false;
+            if (res.status !== 200) {
+              if (res.status === 400) {
+                return res.json().then((errorData) => {
+                  throw new Error(errorData.msg); // Throw the error message as an Error object
+                });
+              } else {
+                throw new Error("Server Error");
+              }
+            }
+            return res.json();
+          })
+          .then((data) => {
+            if (newNode.nextElementSibling.classList.contains("error")) {
+              let nextSibling = newNode.nextElementSibling;
+
+              while (nextSibling && nextSibling.classList.contains("error")) {
+                nextSibling.remove();
+                nextSibling = newNode.nextElementSibling;
+              }
+            }
+            newNode.removeChild(ele2);
+            newNode.classList.remove("editz");
+            newNode.classList.remove("edit1");
+            const textElement =
+              newNode.querySelector(".before1").previousSibling;
+            textElement.textContent = data.text.trim();
+            newNode.classList.add("bg-success");
+          })
+          .catch((err) => {
+            if (err.message == "Please enter text") {
+              inp1.classList.add("is-invalid");
+              inp1.setAttribute("placeholder", err.message);
+            } else {
+              let li = document.createElement("li");
+              li.style.cursor = "pointer";
+              li.innerHTML = `Something went wrong!<span class="ps-1 text-decoration-underline" style="font-size:0.9em;align-self:center">Reload<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="ms-1 bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
 <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
 <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
 </svg></span>`;
-      li.classList.add("error");
-     
-      newNode.parentNode.insertBefore(li, newNode.nextSibling);
+              li.classList.add("error");
 
-    }
-
+              newNode.parentNode.insertBefore(li, newNode.nextSibling);
+            }
+          });
       });
-
-
-     });
-     btn9.addEventListener("click", function (e) {
-
-      newNode.removeChild(ele2);
-newNode.classList.remove('editz')
-newNode.classList.remove('edit1')
-     });
-
-
-
+      btn9.addEventListener("click", function (e) {
+        newNode.removeChild(ele2);
+        newNode.classList.remove("editz");
+        newNode.classList.remove("edit1");
+      });
     });
-
 
     let pintop = newNode.querySelector(".pintop");
 
@@ -731,7 +692,7 @@ list.addEventListener("mouseover", (e) => {
   if (target.nodeName === "LI") {
     if (darkmode) {
       target.classList.remove("bg-toodark");
-      
+
       if (target.textContent == "No text to display") {
         target.classList.add("bg-toodark");
       }
@@ -745,13 +706,14 @@ list.addEventListener("mouseover", (e) => {
     }
     target.classList.toggle("bg-secondary");
     target.classList.toggle("text-white");
-  
-    if (darkmode && target.dataset.date != "Just now" ) {
+
+    if (darkmode && target.dataset.date != "Just now") {
       target.classList.toggle("text-white");
     }
     if (target.dataset.pin == "true" || target.dataset.important == "true") {
       if (target.dataset.pin == "true" && target.dataset.important == "true") {
         target.classList.remove("bg-danger", "bg-warning", "bg-success");
+        
       } else if (target.dataset.important == "true") {
         target.classList.remove("bg-dark");
       } else {
@@ -834,63 +796,50 @@ reset.addEventListener("click", (e) => {
 });
 let isInProgess = false;
 
-
 let submit = document.querySelector('button[type="submit"]');
 
 submit.addEventListener("click", (e) => {
+  let text = document.querySelector('textarea[name="text"]');
 
- let text = document.querySelector('textarea[name="text"]');
+  if (text.value.includes("/n")) {
+    let isValid = text.value.split("/n").filter((item) => item.trim() !== "");
 
- if(text.value.includes('/n')){
+    if (isValid.length == 0) {
+      e.preventDefault();
 
- let isValid = text.value.split('/n').filter(item => item.trim() !== '');
-
- if(isValid.length == 0){
-   e.preventDefault();
-  
-   return;
- }
-
- }
- submit.classList.add("disabled");
+      return;
+    }
+  }
+  submit.classList.add("disabled");
 });
 
 let subdata = null;
 
- 
 let text = document.querySelector('textarea[name="text"]');
-text.addEventListener('input', autoExpand);
-text.addEventListener('paste', autoExpand);
+text.addEventListener("input", autoExpand);
+text.addEventListener("paste", autoExpand);
 
 function autoExpand() {
   // Use a slight delay to allow the content to be updated after paste
   setTimeout(() => {
     if (text.scrollHeight <= 150) {
-      text.style.height = 'auto';
-      text.style.height = text.scrollHeight + 4 + 'px';
-      text.style.overflow = 'hidden';
+      text.style.height = "auto";
+      text.style.height = text.scrollHeight + 4 + "px";
+      text.style.overflow = "hidden";
     } else {
-      text.style.height = '150px'; // Set to the max height
-      text.style.overflow = 'auto';
+      text.style.height = "150px"; // Set to the max height
+      text.style.overflow = "auto";
     }
   }, 10);
 }
 
-
-
-
-
-
 form.addEventListener("submit", (e) => {
- 
-
   let text = document.querySelector('textarea[name="text"]');
   e.preventDefault();
 
-  if (isInProgess ) {
+  if (isInProgess) {
     return;
   }
-
 
   isInProgess = true;
 
@@ -899,19 +848,18 @@ form.addEventListener("submit", (e) => {
     isInProgess = false;
     submit.classList.remove("disabled");
     return;
-
   }
   loader.style.display = "inline-block";
   let value = text.value;
   let data = {
     text: value,
   };
-  if(text.value=="!commands"){
+  if (text.value == "!commands") {
     loader.style.display = "none";
     let command = document.querySelector(".command");
     command.click();
-   text.value=""
-   submit.classList.remove("disabled");
+    text.value = "";
+    submit.classList.remove("disabled");
     return;
   }
   fetch("addtext", {
@@ -921,17 +869,14 @@ form.addEventListener("submit", (e) => {
     },
     body: JSON.stringify(data),
   })
-    .then((res) =>
-    {
+    .then((res) => {
       isInProgess = false;
       text.value = "";
-      text.style.overflow = 'auto';
-      text.style.height = 'auto';
+      text.style.overflow = "auto";
+      text.style.height = "auto";
       submit.classList.remove("disabled");
-    return res.json();
-     
-    }
-     )
+      return res.json();
+    })
     .then((data) => {
       isInProgess = false;
       if (data.msg) {
@@ -940,30 +885,35 @@ form.addEventListener("submit", (e) => {
       loader.style.display = "none";
       text.value = "";
       submit.classList.remove("disabled");
-      if(data.success){
-
-              let li = document.createElement("li");
-              li.style.cursor = "pointer";
-              li.innerHTML = `<div class="alert alert-success alert-dismissible fade show w-100 h-100" role="alert">
+      if (data.success) {
+        let li = document.createElement("li");
+        li.style.cursor = "pointer";
+        li.innerHTML = `<div class="alert alert-success alert-dismissible fade show w-100 h-100" role="alert">
               <strong>Successfully removed all backup texts!</strong> 
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`;
-              li.classList.add("error","bg-success");
-              
-             
-         setTimeout(() => {
-          li.classList.remove("bg-success","hover5","d-flex" ,"justify-content-center","align-items-center","pe-1","mb-2","alert","alert-danger")
-       li.style="list-style-type:none;"
+        li.classList.add("error", "bg-success");
+
+        setTimeout(() => {
+          li.classList.remove(
+            "bg-success",
+            "hover5",
+            "d-flex",
+            "justify-content-center",
+            "align-items-center",
+            "pe-1",
+            "mb-2",
+            "alert",
+            "alert-danger"
+          );
+          li.style = "list-style-type:none;";
         }, 10);
 
-
-              list.insertBefore(li, list.childNodes[0]);
-              return;
+        list.insertBefore(li, list.childNodes[0]);
+        return;
       }
 
       if (data.status) {
-
-    
         getText(false, true, data.secret);
         Fill();
         return;
@@ -976,7 +926,6 @@ form.addEventListener("submit", (e) => {
       isInProgess = false;
       getText(true);
     });
-  
 });
 
 let heading = document.querySelectorAll(".l1");
@@ -989,17 +938,14 @@ heading.forEach((e) => {
 let eventSource;
 
 function connectToEventSource() {
-
-  eventSource = new EventSource('/data-updates');
+  eventSource = new EventSource("/data-updates");
 
   eventSource.onmessage = (event) => {
     getText();
   };
 
   eventSource.onerror = (error) => {
- 
-    console.error('Error connecting to SSE:');
-
+    console.error("Error connecting to SSE:");
   };
 }
 
