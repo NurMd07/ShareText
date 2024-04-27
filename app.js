@@ -77,6 +77,7 @@ app.get("/support", async (req, res) => {
   res.render("contactus", { email: process.env.SUPPORT || null });
 });
 
+
 app.post("/support", loginSignupLimiter, async (req, res) => {
   try {
     let isEmpty = (obj) => Object.keys(obj).length === 0;
@@ -214,7 +215,7 @@ app.post("/login", loginSignupLimiter, async (req, res) => {
       let error = req.session.error || false;
       req.session.email = user.email;
 
-      return res.render("verifyemail", { error: error });
+      return res.render("./Verification/verifyemail.ejs", { error: error });
     }
     // Set the authenticated user in the session
     req.session.user = {
@@ -281,7 +282,7 @@ app.post("/signup", loginSignupLimiter, async (req, res) => {
     });
 
     const mailOptions = {
-      from: `Aquafusion <${process.env.USER}>`,
+      from: `Creative9 <${process.env.USER}>`,
       to: email,
       subject: "Email Verification",
       html: `
@@ -290,11 +291,11 @@ app.post("/signup", loginSignupLimiter, async (req, res) => {
        <tr>
            <td style="padding: 16px;">
                <h2 class="heading" style="text-align: center; font-size: 20px; font-weight: 600; color: #00A5AD; letter-spacing: 0.8px; margin-bottom: 2em;">
-                   <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.aquafusion.in/favicon.ico" alt="..."> <span style="vertical-align: middle">Aquafusion</span>
+                   <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.creative9.tech/favicon.ico" alt="..."> <span style="vertical-align: middle">Creative9</span>
                </h2>
                <h4 class="greeting" style="margin-bottom: 0px; font-size: 1.1em;">Hey NurMd,</h4>
                <p class="context" style="opacity: 0.8; line-height: 1.6;">
-                   Thanks for registering for an account on Aquafusion! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
+                   Thanks for registering for an account on Creative9! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
                </p>
                <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
                    <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get(
@@ -315,7 +316,7 @@ app.post("/signup", loginSignupLimiter, async (req, res) => {
        For any assistance, feel free to reach out:
        Email: <a href="mailto:${process.env.USER}">${
         process.env.USER
-      }</a>, or Contact our <a href="https://st.aquafusion.in/support"> support team.</a>
+      }</a>, or Contact our <a href="https://st.Creative9.tech/support"> support team.</a>
    </p>
 </footer>
    </div>
@@ -342,7 +343,7 @@ app.post("/signup", loginSignupLimiter, async (req, res) => {
 app.get("/verify-email", (req, res) => {
   let error = req.session.error || false;
 
-  res.render("verifyemail", { error: error });
+  res.render("./Verification/verifyemail.ejs", { error: error });
 });
 
 app.get("/verify-email/:token", async (req, res) => {
@@ -352,11 +353,11 @@ app.get("/verify-email/:token", async (req, res) => {
     const user = await User.findOne({ emailVerificationToken: token });
 
     if (!user) {
-      return res.status(404).render("verify-fail");
+      return res.status(401).render("./Verification/verify-fail.ejs");
     }
 
     if (user.isEmailVerified) {
-      return res.render("verify-already");
+      return res.render("./Verification/verify-already.ejs");
     }
 
     if (user.verifyEmailToken(token)) {
@@ -379,7 +380,7 @@ app.get("/verify-email/:token", async (req, res) => {
 
       await user.save();
 
-      res.render("verify-success");
+      res.render("./Verification/verify-success.ejs");
     } else {
       res.status(400).json({ message: "Invalid token" });
     }
@@ -436,7 +437,7 @@ app.post("/resend-verification-email", async (req, res) => {
   });
 
   const mailOptions = {
-    from: `Aquafusion <${process.env.USER}>`,
+    from: `Creative9 <${process.env.USER}>`,
     to: email,
     subject: "Email Verification",
     html: `
@@ -445,11 +446,11 @@ app.post("/resend-verification-email", async (req, res) => {
        <tr>
            <td style="padding: 16px;">
                <h2 class="heading" style="text-align: center; font-size: 20px; font-weight: 600; color: #00A5AD; letter-spacing: 0.8px; margin-bottom: 2em;">
-                   <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.aquafusion.in/favicon.ico" alt="..."> <span style="vertical-align: middle">Aquafusion</span>
+                   <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.creative9.tech/favicon.ico" alt="..."> <span style="vertical-align: middle">Creative9</span>
                </h2>
                <h4 class="greeting" style="margin-bottom: 0px; font-size: 1.1em;">Hey NurMd,</h4>
                <p class="context" style="opacity: 0.8; line-height: 1.6;">
-                   Thanks for registering for an account on Aquafusion! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
+                   Thanks for registering for an account on Creative9! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
                </p>
                <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
                    <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get(
@@ -470,7 +471,7 @@ app.post("/resend-verification-email", async (req, res) => {
        For any assistance, feel free to reach out:
        Email: <a href="mailto:${process.env.USER}">${
       process.env.USER
-    }</a>, or Contact our <a href="https://st.aquafusion.in/support"> support team.</a>
+    }</a>, or Contact our <a href="https://st.creative9.tech/support"> support team.</a>
    </p>
 </footer>
    </div>
@@ -489,7 +490,7 @@ app.post("/resend-verification-email", async (req, res) => {
 });
 
 app.get("/forgot-password", (req, res) => {
-  res.render("reset-password");
+  res.render("./Password/reset-password.ejs");
 });
 
 app.post("/forgot-password", loginSignupLimiter, async (req, res) => {
@@ -525,7 +526,7 @@ app.post("/forgot-password", loginSignupLimiter, async (req, res) => {
       });
 
       const mailOptions = {
-        from: `Aquafusion <${process.env.USER}>`,
+        from: `Creative9 <${process.env.USER}>`,
         to: email,
         subject: "Password Reset",
         html: `
@@ -534,7 +535,7 @@ app.post("/forgot-password", loginSignupLimiter, async (req, res) => {
          <tr>
              <td style="padding: 16px;">
                  <h3 class="heading" style="text-align: center;font-size: 20px; font-weight: 600; color: #00A5AD; letter-spacing: 0.8px; margin-bottom: 2em;">
-                     <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.aquafusion.in/favicon.ico" alt="..."> <span style="vertical-align: middle">Aquafusion</span>
+                     <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.creative9.tech/favicon.ico" alt="..."> <span style="vertical-align: middle">Creative9</span>
                  </h3>
                  <h4 class="greeting" style="margin-bottom: 0px; font-size: 1em;">Reset your password!</h4>
                  <p class="context" style="opacity: 0.9; line-height: 1.6;color:black">
@@ -559,7 +560,7 @@ app.post("/forgot-password", loginSignupLimiter, async (req, res) => {
          For any assistance, feel free to reach out:
          Email: <a href="mailto:${process.env.USER}">${
           process.env.USER
-        }</a>, or Contact our <a href="https://st.aquafusion.in/support"> support team.</a>
+        }</a>, or Contact our <a href="https://st.creative9.in/support"> support team.</a>
      </p>
   </footer>
      </div>
@@ -588,11 +589,11 @@ app.get("/forgot-password/:token", (req, res) => {
   let email;
   jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if (err) {
-      return res.render("resetpassfailed");
+      return res.render("./Password/resetpassfailed.ejs");
     }
     email = decoded.email;
 
-    res.render("passwordchange", { email: email, token: token });
+    res.render("./Password/passwordchange", { email: email, token: token });
   });
 });
 
@@ -623,9 +624,9 @@ app.post("/forgot-password/:token", async (req, res) => {
     user.password = password1;
     await user.save();
 
-    res.render("passwordsuccess.ejs");
+    res.render("./Password/passwordsuccess.ejs");
   } catch (err) {
-    res.render("resetpassfailed");
+    res.render("./Password/resetpassfailed.ejs");
   }
 });
 
@@ -658,6 +659,7 @@ app.get("/logout", (req, res) => {
     return res.status(500).json({ msg: "Internal Server error" });
   }
 });
+
 
 // Route to initiate the SSE connection for the authenticated user
 app.get("/data-updates", (req, res) => {
@@ -771,6 +773,7 @@ app.get("/gettext", async (req, res, next) => {
 });
 
 app.post("/addtext", async (req, res, next) => {
+
   if (!req.session.user.userId) {
     return res.status(400).json({ msg: "Bad request" });
   }
@@ -779,9 +782,9 @@ app.post("/addtext", async (req, res, next) => {
     req.body.user = req.session.user.userId;
     if (!req.body.text) {
       return res.status(400).json({ msg: "Please enter text" });
-    } else if (req.body.text.includes("/n")) {
+    } else if (req.body.text.includes("+n")) {
       let isValid = req.body.text
-        .split("/n")
+        .split("+n")
         .filter((item) => item.trim() !== "");
       if (isValid.length == 0) {
         return res.status(400).json({ msg: "Please enter text" });
@@ -843,9 +846,9 @@ app.post("/addtext", async (req, res, next) => {
     }
     let text;
     let textobjectids;
-    if (req.body.text.includes("/n")) {
+    if (req.body.text.includes("+n")) {
       text = req.body.text
-        .split("/n")
+        .split("+n")
         .filter((item) => item.trim() !== "")
         .map((item) => {
           return { text: item.trim(), user: req.session.user.userId };
@@ -867,7 +870,7 @@ app.post("/addtext", async (req, res, next) => {
       });
     }
     res.json(text);
-    if (req.body.text.includes("/n")) {
+    if (req.body.text.includes("+n")) {
       backupText
         .insertMany(text)
         .then((insertedBackups) => {
@@ -1011,12 +1014,12 @@ app.post("/edit", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.status(404).render("404"); // Render a 404 page or send a custom response
+  res.status(404).render("./Errors/404.ejs"); // Render a 404 page or send a custom response
 });
 
 app.use((err, req, res, next) => {
   if (err && err.name === "RateLimitExceededError") {
-    res.status(429).render("toomanyattempts");
+    res.status(429).render("./Errors/toomanyattempts.ejs");
   } else {
     if (
       err.message &&
@@ -1027,7 +1030,7 @@ app.use((err, req, res, next) => {
     } else {
       // Handle other errors
       console.error("Unhandled error:", err);
-      res.status(500).render("500");
+      res.status(500).render("./Errors/500.ejs");
     }
   }
 });

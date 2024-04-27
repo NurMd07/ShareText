@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Text</title>
-     <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/bootstrap/bootstrap_4.0.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
@@ -219,6 +219,14 @@ label {
           margin-top: 2.5em;
         }
       }
+      @media only screen and (min-width: 990px) and (max-width:1010px) {
+
+.middle-box{
+  margin-left: -0em !important;
+  margin-right: -0em !important;
+}        
+
+    }
 .signup,.login{
     cursor:pointer;
 }
@@ -237,7 +245,7 @@ label {
                 </div>
             </div>
 
-            <div class="col-12 col-md-5 col-lg-4 login-box mb-3">
+            <div class="col-12 col-md-5 col-lg-4 login-box mb-3 ml-md-5 mr-md-3 middle-box">
                 <div class="col-lg-12 login-key">
                     <i class="fa fa-key" aria-hidden="true"></i>
                 </div>
@@ -278,7 +286,7 @@ label {
                 </div>
              
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mx-lg-4 px-2 px-md-2 px-lg-3 px-xl-3  mb-3 mb-md-0 login-box lb1"
+            <div class="col-12 col-md-3 col-lg-3 mx-lg-4 px-2 px-md-2 mr-md-0 px-lg-3 px-xl-3  mb-3 mb-md-0 login-box lb1"
             style="height: fit-content"  >
                
                     <p style="text-decoration: underline;text-underline-offset: 0.5em; line-height: 3em;color:white" > Already have an account ? <span class="d-inline-block m-2 btn btn-sm btn-primary  login" >Login</span></p>
@@ -346,7 +354,7 @@ label {
     let logintext = document.querySelector(".login-text");
     let heading = document.querySelector(".heading");
     heading.addEventListener("click", function () {
-       window.open('/')
+       window.open('/',"_self")
     });
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -370,7 +378,7 @@ label {
     form.addEventListener("submit", function(event) {
        
         event.preventDefault(); // Prevent form submission
-        load.style.display ="inline-block";
+      
         
         let hasError = false;
 
@@ -396,6 +404,7 @@ load.style.display ="inline-block";
             usernameInput.nextElementSibling.classList.remove("d-none");
             usernameInput.nextElementSibling.innerHTML = errors.username;
             hasError = true;
+           
         }
 
         // Validate email format
@@ -416,9 +425,10 @@ load.style.display ="inline-block";
         }
   
     
-  isFetching = true;
+
         if (!hasError) {
-         
+            load.style.display ="inline-block";
+            isFetching = true;
  
 fetch("/signup", {
     method: "POST",

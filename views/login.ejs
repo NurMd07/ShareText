@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Share Text</title>
-    <!-- Bootstrap 3.3.6 -->
+
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-      integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-      crossorigin="anonymous"
+      href="/bootstrap/bootstrap_4.0.min.css"
+
     />
     <!-- Font Awesome -->
     <link
@@ -30,237 +29,14 @@
       href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600&display=swap"
       rel="stylesheet"
     />
-    <style>
-      body {
-        background: #222d32;
-        font-family: "Roboto", sans-serif;
-      }
-
-      .login-box {
-        margin-top: 35px;
-        padding-top: 0.5em;
-        height: auto;
-
-        background: #1a2226;
-        text-align: center;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      }
-
-      .login-key {
-        margin-top: 3px;
-        height: 80px;
-        font-size: 65px;
-        line-height: 80px;
-        background: -webkit-linear-gradient(#27ef9f, #0db8de);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .login-title {
-        margin-top: 6px;
-        margin-bottom: 15px;
-        text-align: center;
-        font-size: 30px;
-        letter-spacing: 2px;
-
-        font-weight: bold;
-        color: #ecf0f5;
-      }
-
-      .login-form {
-        margin-top: 25px;
-        text-align: left;
-      }
-
-      input[type="text"] {
-        background-color: #1a2226;
-        border: none;
-        border-bottom: 2px solid #0db8de;
-        border-top: 0px;
-        border-radius: 0px;
-        font-weight: bold;
-        outline: 0;
-        margin-bottom: 20px;
-        padding-left: 0px;
-        color: #ecf0f5;
-      }
-
-      input[type="password"] {
-        background-color: #1a2226;
-        border: none;
-        border-bottom: 2px solid #0db8de;
-        border-top: 0px;
-        border-radius: 0px;
-        font-weight: bold;
-        outline: 0;
-        padding-left: 0px;
-        margin-bottom: 20px;
-        color: #ecf0f5;
-      }
-
-      .form-group {
-        margin-bottom: 40px;
-        outline: 0px;
-      }
-
-      .form-control:focus {
-        border-color: inherit;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        border-bottom: 2px solid #0db8de;
-        outline: 0;
-        background-color: #1a2226;
-        color: #ecf0f5;
-      }
-
-      input:focus {
-        outline: none;
-        box-shadow: 0 0 0;
-      }
-
-      label {
-        margin-bottom: 0px;
-      }
-
-      .form-control-label {
-        font-size: 10px;
-        color: #6c6c6c;
-        font-weight: bold;
-        letter-spacing: 1px;
-      }
-
-      .btn-outline-primary {
-        border-color: #0db8de;
-        color: #0db8de;
-        border-radius: 0px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-
-      .btn-outline-primary:hover {
-        background-color: #0db8de;
-        right: 0px;
-      }
-
-      .login-btm {
-        float: left;
-      }
-
-      .login-button {
-        padding-right: 0px;
-        text-align: right;
-        margin-bottom: 25px;
-      }
-      .s1:hover,
-      .forgot:hover,
-      .su1:hover {
-        cursor: pointer;
-      }
-      .login-text {
-        text-align: left;
-        padding-left: 0px;
-        color: #a2a4a4;
-      }
-
-      .loginbttm {
-        padding: 0px;
-      }
-
-      .main-img {
-        margin-right: 8px;
-        width: 1.2em !important;
-        margin-bottom: 0.4em;
-      }
-      .heading {
-        color: white;
-      }
-
-      .heading:hover {
-        color: rgb(187, 187, 187);
-        opacity: 0.9;
-
-        cursor: pointer;
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
-      }
-
-      .sub-heading {
-        font-family: "Gabarito", cursive;
-        letter-spacing: 1px;
-        margin-left: 0em;
-        font-size: 1em;
-      }
-
-      @keyframes rotate {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      @-webkit-keyframes rotate {
-        from {
-          -webkit-transform: rotate(0deg);
-        }
-        to {
-          -webkit-transform: rotate(360deg);
-        }
-      }
-
-      .load {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-
-        border: solid 3px #8822aa;
-        border-radius: 50%;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        -webkit-transition: all 0.5s ease-in;
-        -webkit-animation-name: rotate;
-        -webkit-animation-duration: 1s;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-timing-function: linear;
-
-        transition: all 0.5s ease-in;
-        animation-name: rotate;
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-      }
-
-      .main-heading:hover {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
-      }
-      .lb1 {
-        max-width: 90%;
-        margin: 2.5em auto;
-      }
-
-      .main-heading {
-        margin-top: 1.3em;
-        font-size: 1.4em;
-      }
-
-      @media only screen and (min-width: 768px) {
-        .lb1 {
-          max-width: fit-content !important;
-        }
-        .main-heading {
-          margin-top: 2.5em;
-        }
-      }
-
-    </style>
+    <link
+    href="/css/login/login.css"
+    rel="stylesheet"
+  />
   </head>
   <body>
     <div class="container-fluid">
+
       <div class="row justify-content-md-around mt-0 mt-md-3">
         <!-- first column -->
 
@@ -275,14 +51,18 @@
 
         <!-- Second column -->
 
-        <div class="col-12 col-md-5 col-lg-4 login-box mb-4">
+        <div class="col-12 col-md-5 col-lg-4 login-box mb-4 ml-md-5 mr-md-3 middle-box" >
+
           <div class="col-lg-12 login-key">
             <i class="fa fa-key" aria-hidden="true"></i>
           </div>
+
           <div class="col-lg-12 login-title">Login</div>
 
           <div class="col-lg-12 login-form">
+
             <div class="col-lg-12 login-form">
+
               <form
                 method="POST"
                 action="/login"
@@ -329,7 +109,7 @@
         <!-- Third column -->
 
         <div
-          class="col-12 col-md-3 col-lg-3 mx-lg-5 p-lg-4 mb-3 mb-md-0 login-box lb1"
+          class="col-12 col-md-2 col-lg-3 mx-lg-5 p-md-4 p-lg-4 mb-3 mb-md-0 login-box lb1"
           style="height: fit-content"
         >
           <p
@@ -358,40 +138,7 @@
       </div>
     </div>
 
-    <script>
-      let su1 = document.querySelector(".su1");
-      su1.addEventListener("click", () => {
-        window.location.href = "/signup";
-      });
-      let su2 = document.querySelector(".su2");
-      su2.addEventListener("click", () => {
-        window.location.href = "/forgot-password";
-      });
-      let logintext = document.querySelector(".login-text");
-      let heading = document.querySelector(".heading");
-      heading.addEventListener("click", function () {
-        logintext.innerHTML = "Login To Continue";
-      });
-
-      let load = document.querySelector(".load");
-      load.style.display = "none";
-
-      function validateForm() {
-        load.style.display = "inline-block";
-        const inp1 = document.querySelector(".inp1").value;
-        const inp2 = document.querySelector(".inp2").value;
-
-        if (inp1.length < 5 || inp2.length < 6) {
-          logintext.innerHTML =
-            "Username or password should be more than 5 characters";
-          console.log("prevented");
-          load.style.display = "none";
-          return false; // Prevent form submission
-        }
-
-        // If the condition is met, the form submission is allowed.
-        return true;
-      }
+    <script src="/js/login/login.js">
     </script>
   </body>
 </html>
