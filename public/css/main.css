@@ -154,13 +154,12 @@ svg {
 
 .maincontent1 {
   box-sizing: border-box;
-  min-height: 30vh;
-  max-height: 70vh ;
+ min-height: 50vh;
+  max-height: 73vh ;
   overflow-y: auto;
   overflow-x: hidden;
   padding-top: 0.5em;
   padding-bottom: 1em;
-
   scrollbar-width: thin;
 
 }
@@ -168,8 +167,8 @@ svg {
 @media screen and (min-width: 600px) {
 
   .maincontent1 {
-   
-    max-height: 62vh;
+  
+    max-height: 63vh ;
   }
 
   .copy:hover {
@@ -209,10 +208,12 @@ svg {
 
   }
 
+
   .maincontent1 {
-    min-height: 50vh;
-    max-height: 67vh;
+  
+    max-height: 66vh ;
   }
+
 
 }
 
