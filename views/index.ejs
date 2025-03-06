@@ -10,31 +10,21 @@
       href="/bootstrap/bootstrap.min.css"
       rel="stylesheet"
     />
+ 
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
 
+<% let darkmode ; %>
     <% if(darkmode){ %>
     <script>
-      let darkmode = true;
+      darkmode = true;
     </script>
-    <style>
-      body {
-        background-color: #292929;
-      }
-    </style>
-
     <% }else{ %>
-
     <script>
-      let darkmode = false;
+     darkmode = false;
     </script>
-    <style>
-      body {
-        background-color: #fff;
-      }
-    </style>
     <% } %>
 
     <link rel="manifest" href="site.webmanifest" />
@@ -163,7 +153,7 @@
         style="position: fixed; bottom: 2em; width: 100%;z-index:100"
       >
         <div
-          class="col-10 col-md-9 col-lg-9 col-xl-8 inpz2"
+          class="col-10 col-xl-8 inpz2"
           style="position: relative"
         >
           <textarea

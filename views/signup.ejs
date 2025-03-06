@@ -15,237 +15,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <style>
-        body {
-    background: #222D32;
-    font-family: 'Roboto', sans-serif;
-}
 
-.login-box {
-    margin-top: 35px;
-    padding-top:0.5em;
-    height: auto;
-    background: #1A2226;
-    text-align: center;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-
-.login-key {
-    margin-top: 3px;
-    height: 80px;
-    font-size: 65px;
-    line-height: 80px;
-    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.login-title {
-    margin-top: 6px;
-    margin-bottom: 15px;
-    text-align: center;
-    font-size: 30px;
-    letter-spacing: 2px;
-
-    font-weight: bold;
-    color: #ECF0F5;
-}
-
-.login-form {
-    margin-top: 25px;
-    text-align: left;
-}
-
-input[type=text] {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #0DB8DE;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    margin-bottom: 20px;
-    padding-left: 0px;
-    color: #ECF0F5;
-}
-
-input[type=password] {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #0DB8DE;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    padding-left: 0px;
-    margin-bottom: 20px;
-    color: #ECF0F5;
-}
-
-input[type=email] {
-    background-color: #1A2226;
-    border: none;
-    border-bottom: 2px solid #0DB8DE;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    margin-bottom: 20px;
-    padding-left: 0px;
-    color: #ECF0F5;
-}
-
-.form-group {
-    margin-bottom: 40px;
-    outline: 0px;
-}
-
-.form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 2px solid #0DB8DE;
-    outline: 0;
-    background-color: #1A2226;
-    color: #ECF0F5;
-}
-
-input:focus {
-    outline: none;
-    box-shadow: 0 0 0;
-}
-
-label {
-    margin-bottom: 0px;
-}
-
-.form-control-label {
-    font-size: 10px;
-    color: #6C6C6C;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.btn-outline-primary {
-    border-color: #0DB8DE;
-    color: #0DB8DE;
-    border-radius: 0px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-.btn-outline-primary:hover {
-    background-color: #0DB8DE;
-    right: 0px;
-}
-
-.login-btm {
-    float: left;
-}
-
-.login-button {
-    padding-right: 0px;
-    text-align: right;
-    margin-bottom: 25px;
-}
-
-.login-text {
-    text-align: left;
-    padding-left: 0px;
-    color: #A2A4A4;
-}
-
-.loginbttm {
-    padding: 0px;
-}
-
-.sub-heading{
-    font-family: 'Gabarito', cursive;letter-spacing: 1px;margin-left: 0em;
-}
-
-
-.error {
-    border-bottom: 2px solid red !important;
-}
-
-.main-img {
-        margin-right: 8px;
-        width: 1.2em !important;
-        margin-bottom: 0.4em;
-      }
-
-    
-
-.sub-heading {
-  font-family: "Gabarito", cursive;
-  letter-spacing: 1px;
-  margin-left: 0em;
-  font-size: 1em;
-
-}
-.heading {
-        color: white;
-      }
-
-      .heading:hover {
-        color: rgb(187, 187, 187);
-        opacity: 0.9;
-
-        cursor: pointer;
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
-      }
-      .lb1 {
-        max-width: 90%;
-        margin: 2.5em auto;
-        padding-left: 1em;
-      }
-
-      .main-heading {
-        margin-top: 1.3em;
-        font-size: 1.4em;
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
-      }
-
-      @media only screen and (min-width: 768px) {
-        .lb1 {
-          max-width: fit-content !important;
-        }
-        .main-heading {
-          margin-top: 2.5em;
-        }
-      }
-      @media only screen and (min-width: 990px) and (max-width:1010px) {
-
-.middle-box{
-  margin-left: -0em !important;
-  margin-right: -0em !important;
-}        
-
-    }
-.signup,.login{
-    cursor:pointer;
-}
-    </style>
+    <link rel="stylesheet" href="/css/login/signup.css" />
 </head>
 <body>
     
     <div class="container-fluid">
        
         <div class="row justify-content-md-around mt-0 mt-md-3">
-            <div class="col-12 col-md-3 col-lg-3 main-heading mb-3 mb-md-0 d-flex justify-content-center align-items-start" >
-                <div class="heading d-flex justify-content-center align-items-center">
+            <div
+            class="col-12 col-md-3 col-lg-3 main-heading mb-3 mb-md-0 d-flex justify-content-center align-items-start"
+         >
+               <div class="heading d-flex justify-content-center align-items-center">
                     <img class="main-img " src="images/copy.png" alt="Not Found" />
                     <h1 class="sub-heading">Share Text</h1>
                 
                 </div>
             </div>
 
-            <div class="col-12 col-md-5 col-lg-4 login-box mb-3 ml-md-5 mr-md-3 middle-box">
+            <div class="col-12 col-md-5 col-lg-4 login-box mb-3 middle-box">
                 <div class="col-lg-12 login-key">
                     <i class="fa fa-key" aria-hidden="true"></i>
                 </div>
@@ -286,7 +74,7 @@ label {
                 </div>
              
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mx-lg-4 px-2 px-md-2 mr-md-0 px-lg-3 px-xl-3  mb-3 mb-md-0 login-box lb1"
+            <div class="col-12 col-md-3 col-lg-2 mx-lg-5  mb-3 mb-md-0 login-box lb1"
             style="height: fit-content"  >
                
                     <p style="text-decoration: underline;text-underline-offset: 0.5em; line-height: 3em;color:white" > Already have an account ? <span class="d-inline-block m-2 btn btn-sm btn-primary  login" >Login</span></p>
