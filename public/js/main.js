@@ -24,7 +24,8 @@ let dark = () => {
   darkmodetext.style.color = "white";
 
   darkmode = true;
-
+  document.cookie = "darkmode=true";
+  updateThemeColor("#292929");
   document.querySelectorAll(".maincontent1 > li").forEach((li) => {
     if (
       li.dataset.pin != "true" &&
@@ -35,8 +36,7 @@ let dark = () => {
     }
   });
   
-  document.cookie = "darkmode=true";
-  updateThemeColor("#292929");
+
 };
 let light = () => {
 
@@ -66,11 +66,13 @@ let light = () => {
 };
 
 if (isDarkLocal === "true") {
-  dark();
   document.body.setAttribute('data-theme', 'dark');
+  dark();
+  
 } else {
+    document.body.setAttribute('data-theme', 'light');
   light();
-  document.body.setAttribute('data-theme', 'light');
+
 }
 
 darkmodetext.addEventListener("click", () => {

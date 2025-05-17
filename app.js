@@ -17,7 +17,6 @@ import advancedFormat from "dayjs/plugin/utc.js"; // load on demand
 import cookieParser from "cookie-parser";
 
 //import ratelimit and cron jobs
-import rateLimit from "express-rate-limit";
 import loginSignupLimiter from "./src/middlewares/rateLimitMiddleware.js";
 import "./src/utils/cronJobs.js";
 
