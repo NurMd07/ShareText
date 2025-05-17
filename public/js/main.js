@@ -706,6 +706,9 @@ newNode.style.borderColor = "rgba(0,0,0,0)"
     ) {
       newNode.querySelector(".date1").classList.remove("text-muted");
     }
+    if(darkmode){
+       newNode.querySelector(".date1").classList.remove("text-muted");
+    }
   }
 };
 
