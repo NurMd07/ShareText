@@ -335,7 +335,7 @@ function nodeInserted(node) {
       "w-100",
       "preserve-space",
       "text-break",
-   
+      'list-text'
    
     );
 newNode.style.borderColor = "rgba(0,0,0,0)"
@@ -706,9 +706,7 @@ newNode.style.borderColor = "rgba(0,0,0,0)"
     ) {
       newNode.querySelector(".date1").classList.remove("text-muted");
     }
-    if(darkmode){
-       newNode.querySelector(".date1").classList.remove("text-muted");
-    }
+ 
   }
 };
 

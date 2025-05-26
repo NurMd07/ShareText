@@ -6,9 +6,20 @@
   --text-input-color:#000000;
   --popup-content-bg-color:#fff;
   --popup-content-border: 1px solid #fff;
+
 }
-
-
+/* SemiBold (Weight 600) */
+@font-face {
+  font-family: 'Inter';
+  src: url('css/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; /* Optional: improves perceived performance */
+}
+.list-text{
+ font-family: Inter !important;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
 [data-theme="dark"] {
   --bg-color:#292929;
   --heading-color:#ffffff;
@@ -19,6 +30,7 @@
 }
 
 body,html {
+ 
   overflow-x: hidden;
   position: relative;
   background-color: var(--bg-color);
@@ -135,7 +147,7 @@ body,html {
 }
 
 .date1 {
-  font-size: 0.7em
+  font-size: 0.8em
 }
 
 @media only screen and (max-width: 600px) {
