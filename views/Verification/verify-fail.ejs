@@ -1,67 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification Failed</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
+    <title>Email Verification Unavailable | ShareText</title>
+    <link rel="stylesheet" href="/css/login/auth.css">
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <a class="brand auth-brand heading" href="/" aria-label="ShareText home">
+        <span class="brand-mark">
+          <img class="brand-logo" src="/images/copy.png" alt="">
+        </span>
+        <h1 class="brand-title"><span>Share</span><span class="brand-title-accent">Text</span></h1>
+      </a>
 
-        .container {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 400px;
-        }
-
-        h1 {
-            color: #FF0000; /* Red color for error message */
-        }
-
-        p {
-            color: #666;
-        }
-
-        .button-container {
-            margin-top: 20px;
-        }
-
-        .signup-button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        .signup-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Email Verification Failed</h1>
-        <p>User not found or token expired.</p>
-        <div class="button-container">
-            <button class="signup-button" onclick="redirectToSignUp()">Sign Up</button>
+      <section class="auth-card" aria-labelledby="verify-fail-title">
+        <header class="auth-card-header">
+          <div class="auth-heading-row auth-result-heading">
+            <span class="auth-result-icon error" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 8v5m0 3h.01M10.3 3.9 2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h2 class="auth-title" id="verify-fail-title">Verification link unavailable</h2>
+          </div>
+          <p class="auth-description">This link is invalid or has expired. Sign in if you already have an account, or create a new one to get started.</p>
+        </header>
+        <div class="auth-result-actions">
+          <a href="/signup" class="auth-submit">Create an account</a>
+          <a href="/login" class="auth-link auth-result-secondary">Back to sign in</a>
         </div>
-    </div>
-
-    <script>
-        function redirectToSignUp() {
-            // You can specify the URL to your sign-up page here
-            window.location.href = "/signup";
-        }
-    </script>
-</body>
+      </section>
+    </main>
+  </body>
 </html>

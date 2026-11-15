@@ -22,6 +22,7 @@ const userSchema = new Schema({
     default: () => new Date(Date.now() + 30 * 60 * 1000) // Default to 30 minutes from now
   },
     resetPasswordToken: String,
+    deleteAccountToken: String,
  
 });
 userSchema.index({ expires: 1 }, { expireAfterSeconds: 0 });

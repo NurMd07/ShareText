@@ -9,6 +9,7 @@ const backupSchema = new Schema({
     pin:{type:Boolean,default:false},
     hidden:{type:Boolean,default:false},
     user: { type: Schema.Types.ObjectId, ref: 'User' },
+    sourceTextId: { type: Schema.Types.ObjectId, ref: 'Text' },
     createdAt: {
         type: Date,
         default: Date.now,

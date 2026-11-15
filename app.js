@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 import User from "./models/user.js";
 import Text from "./models/text.js";
@@ -233,6 +234,136 @@ app.post("/login", loginSignupLimiter, async (req, res) => {
 
 import nodemailer from "nodemailer";
 
+function buildVerificationEmail(siteUrl, verificationUrl) {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verify your ShareText email</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f1f5f9;color:#f4f4f4;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f1f5f9;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:560px;background-color:#171717;border:1px solid #252b35;border-radius:16px;">
+            <tr>
+              <td style="padding:28px 28px 12px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" valign="middle" width="40" height="40" bgcolor="#19304a" style="width:40px;height:40px;padding:6px;border-radius:12px;background-color:#19304a;">
+                      <img src="${siteUrl}/images/copy.png" width="28" height="28" alt="" style="display:block;width:28px;height:28px;border:0;">
+                    </td>
+                    <td valign="middle" style="padding-left:12px;">
+                      <div style="color:#f4f4f4;font-size:20px;font-weight:700;letter-spacing:-0.4px;">Share<span style="color:#70b7ff;">Text</span></div>
+                      <div style="margin-top:4px;color:#9da6b2;font-size:10px;font-weight:700;letter-spacing:1.2px;">ACCOUNT SECURITY</div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 28px 8px;">
+                <p style="margin:0 0 10px;color:#70b7ff;font-size:11px;font-weight:700;letter-spacing:1.3px;">EMAIL VERIFICATION</p>
+                <h1 style="margin:0 0 14px;color:#f4f4f4;font-size:26px;line-height:1.25;font-weight:700;">Confirm your email</h1>
+                <p style="margin:0;color:#c5cbd3;font-size:15px;line-height:1.7;">Thanks for signing up for ShareText. Confirm this email address to finish setting up your account.</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:24px 28px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" bgcolor="#70b7ff" style="border-radius:8px;">
+                      <a href="${verificationUrl}" style="display:inline-block;padding:14px 26px;border-radius:8px;color:#1b2633;font-size:15px;font-weight:700;line-height:20px;text-decoration:none;">Verify email address</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#202327;border:1px solid #343a40;border-radius:10px;">
+                  <tr>
+                    <td style="padding:14px 16px;">
+                      <p style="margin:0 0 5px;color:#f4f4f4;font-size:14px;font-weight:700;">This link expires in 30 minutes</p>
+                      <p style="margin:0;color:#aeb7c2;font-size:13px;line-height:1.55;">Verify your email address to finish setting up your ShareText account.</p>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:20px 0 6px;color:#c5cbd3;font-size:13px;line-height:1.6;">If the button does not work, copy and paste this address into your browser:</p>
+                <p style="margin:0;word-break:break-all;font-size:12px;line-height:1.6;"><a href="${verificationUrl}" style="color:#84c5ff;text-decoration:underline;">${verificationUrl}</a></p>
+                <p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #343a40;color:#aeb7c2;font-size:13px;line-height:1.6;">If you did not create a ShareText account, you can safely ignore this email.</p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:18px 0 0;color:#64748b;font-size:12px;line-height:1.6;text-align:center;">Need help? <a href="${siteUrl}/support" style="color:#1769e0;text-decoration:underline;">Contact ShareText support</a>.</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function buildAccountDeletionEmail(siteUrl, confirmationUrl) {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Confirm account deletion</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f1f5f9;color:#f4f4f4;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f1f5f9;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:560px;background-color:#171717;border:1px solid #252b35;border-radius:16px;">
+            <tr>
+              <td style="padding:28px 28px 12px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" valign="middle" width="40" height="40" bgcolor="#19304a" style="width:40px;height:40px;padding:6px;border-radius:12px;background-color:#19304a;">
+                      <img src="${siteUrl}/images/copy.png" width="28" height="28" alt="" style="display:block;width:28px;height:28px;border:0;">
+                    </td>
+                    <td valign="middle" style="padding-left:12px;">
+                      <div style="color:#f4f4f4;font-size:20px;font-weight:700;">Share<span style="color:#70b7ff;">Text</span></div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 28px 8px;">
+                <p style="margin:0 0 10px;color:#fda4af;font-size:11px;font-weight:700;letter-spacing:1.3px;">ACCOUNT DELETION</p>
+                <h1 style="margin:0 0 14px;color:#f4f4f4;font-size:26px;line-height:1.25;font-weight:700;">Confirm account deletion</h1>
+                <p style="margin:0;color:#c5cbd3;font-size:15px;line-height:1.7;">We received a request to permanently delete your ShareText account, saved text, and backups. Open the link below within 30 minutes to complete the deletion.</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:24px 28px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" bgcolor="#dc3545" style="border-radius:8px;">
+                      <a href="${confirmationUrl}" style="display:inline-block;padding:14px 26px;border-radius:8px;color:#ffffff;font-size:15px;font-weight:700;line-height:20px;text-decoration:none;">Delete my account</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px;">
+                <p style="margin:0 0 6px;color:#c5cbd3;font-size:13px;line-height:1.6;">If the button does not work, copy and paste this address into your browser:</p>
+                <p style="margin:0;word-break:break-all;font-size:12px;line-height:1.6;"><a href="${confirmationUrl}" style="color:#84c5ff;text-decoration:underline;">${confirmationUrl}</a></p>
+                <p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #343a40;color:#aeb7c2;font-size:13px;line-height:1.6;">If you did not request this, ignore this email. Your account will remain active. <a href="${siteUrl}/support" style="color:#84c5ff;text-decoration:underline;">Contact support</a>.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
 app.post("/signup", loginSignupLimiter, async (req, res) => {
   try {
     let { password, email, username } = req.body;
@@ -280,46 +411,13 @@ app.post("/signup", loginSignupLimiter, async (req, res) => {
       },
     });
 
+    const siteUrl = `${req.protocol}://${req.get("host")}`;
+    const verificationUrl = `${siteUrl}/verify-email/${emailVerificationToken}`;
     const mailOptions = {
-      from: `Creative9 <${process.env.USER}>`,
+      from: `ShareText <${process.env.USER}>`,
       to: email,
-      subject: "Email Verification",
-      html: `
-    <div style="color:black;font-family: Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;"> 
-    <table class="main" style="font-size:1.1em;max-width: 500px; border-collapse: collapse; border:1px solid #ccc; border-radius: 5px; box-shadow: 0 0 2px #ccc; margin: 0 auto; ">
-       <tr>
-           <td style="padding: 16px;">
-               <h2 class="heading" style="text-align: center; font-size: 20px; font-weight: 600; color: #00A5AD; letter-spacing: 0.8px; margin-bottom: 2em;">
-                   <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.creative9.tech/favicon.ico" alt="..."> <span style="vertical-align: middle">Creative9</span>
-               </h2>
-               <h4 class="greeting" style="margin-bottom: 0px; font-size: 1.1em;">Hey NurMd,</h4>
-               <p class="context" style="opacity: 0.8; line-height: 1.6;">
-                   Thanks for registering for an account on Creative9! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
-               </p>
-               <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
-                   <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get(
-                     "host"
-                   )}/verify-email/${emailVerificationToken}">Verify Email</a>
-               </p>
-               <p class="info1">This Link will expire in 30 Minutes.</p>
-               <p class="line" style="border-bottom: 1px solid #ccc; margin-bottom: 0px;"></p>
-               <p class="info1" style="opacity: 0.8; font-size: 14px; margin-top: 1.5em; line-height: 1.4; margin-bottom: 0px;">
-                   If you don’t recognize signing up for this, you can safely ignore this email.
-               </p>
-             
-           </td>
-       </tr>
-   </table>
-   <footer style="margin-top:2em;opacity: 0.7; font-size: 0.9em; line-height: 1.5;" class="footer">
-   <p style="text-align:center">
-       For any assistance, feel free to reach out:
-       Email: <a href="mailto:${process.env.USER}">${
-        process.env.USER
-      }</a>, or Contact our <a href="https://st.Creative9.tech/support"> support team.</a>
-   </p>
-</footer>
-   </div>
-`,
+      subject: "Verify your ShareText email",
+      html: buildVerificationEmail(siteUrl, verificationUrl),
     };
 
     req.session.lastRequestTime = Date.now();
@@ -366,9 +464,10 @@ app.get("/verify-email/:token", async (req, res) => {
       // user.emailVerificationToken = undefined; // Clear the token after verification
       user.expires = "2999-12-31T18:30:00.000Z";
       let text = new Text({
-        text: "Install this website as an app for best experience! ( near search-bar install button will be shown )",
+        text: "📲 Install ShareText as an app for the best experience from Address bar or Settings menu!",
         user: user._id,
         important: true,
+        pin: true,
       });
       if (!user.texts || user.texts.length === 0) {
         // Initialize the texts array if not present
@@ -435,46 +534,13 @@ app.post("/resend-verification-email", async (req, res) => {
     },
   });
 
+  const siteUrl = `${req.protocol}://${req.get("host")}`;
+  const verificationUrl = `${siteUrl}/verify-email/${emailVerificationToken}`;
   const mailOptions = {
-    from: `Creative9 <${process.env.USER}>`,
+    from: `ShareText <${process.env.USER}>`,
     to: email,
-    subject: "Email Verification",
-    html: `
-    <div style="color:black;font-family: Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;"> 
-    <table class="main" style="font-size:1.1em;max-width: 500px; border-collapse: collapse; border:1px solid #ccc; border-radius: 5px; box-shadow: 0 0 2px #ccc; margin: 0 auto; ">
-       <tr>
-           <td style="padding: 16px;">
-               <h2 class="heading" style="text-align: center; font-size: 20px; font-weight: 600; color: #00A5AD; letter-spacing: 0.8px; margin-bottom: 2em;">
-                   <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.creative9.tech/favicon.ico" alt="..."> <span style="vertical-align: middle">Creative9</span>
-               </h2>
-               <h4 class="greeting" style="margin-bottom: 0px; font-size: 1.1em;">Hey NurMd,</h4>
-               <p class="context" style="opacity: 0.8; line-height: 1.6;">
-                   Thanks for registering for an account on Creative9! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
-               </p>
-               <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
-                   <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get(
-                     "host"
-                   )}/verify-email/${emailVerificationToken}">Verify Email</a>
-               </p>
-               <p class="info1">This Link will expire in 30 Minutes.</p>
-               <p class="line" style="border-bottom: 1px solid #ccc; margin-bottom: 0px;"></p>
-               <p class="info1" style="opacity: 0.8; font-size: 14px; margin-top: 1.5em; line-height: 1.4; margin-bottom: 0px;">
-                   If you don’t recognize signing up for this, you can safely ignore this email.
-               </p>
-             
-           </td>
-       </tr>
-   </table>
-   <footer style="margin-top:2em;opacity: 0.7; font-size: 0.9em; line-height: 1.5;" class="footer">
-   <p style="text-align:center">
-       For any assistance, feel free to reach out:
-       Email: <a href="mailto:${process.env.USER}">${
-      process.env.USER
-    }</a>, or Contact our <a href="https://st.creative9.tech/support"> support team.</a>
-   </p>
-</footer>
-   </div>
-`,
+    subject: "Verify your ShareText email",
+    html: buildVerificationEmail(siteUrl, verificationUrl),
   };
 
   req.session.lastRequestTime = Date.now();
@@ -514,6 +580,9 @@ app.post("/forgot-password", loginSignupLimiter, async (req, res) => {
 
       await user.save();
 
+      const siteUrl = `${req.protocol}://${req.get("host")}`;
+      const resetUrl = `${siteUrl}/forgot-password/${resetToken}`;
+
       const transporter = nodemailer.createTransport({
         host: process.env.HOST,
         secure: true,
@@ -525,45 +594,76 @@ app.post("/forgot-password", loginSignupLimiter, async (req, res) => {
       });
 
       const mailOptions = {
-        from: `Creative9 <${process.env.USER}>`,
+        from: `ShareText <${process.env.USER}>`,
         to: email,
-        subject: "Password Reset",
-        html: `
-      <div style="color:black;font-family: Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;"> 
-      <table class="main" style="font-size:1.1em;max-width: 500px; border-collapse: collapse; border:1px solid #ccc; border-radius: 5px; box-shadow: 0 0 2px #ccc; margin: 0 auto; ">
-         <tr>
-             <td style="padding: 16px;">
-                 <h3 class="heading" style="text-align: center;font-size: 20px; font-weight: 600; color: #00A5AD; letter-spacing: 0.8px; margin-bottom: 2em;">
-                     <img style="vertical-align: middle;margin-right: 1px; max-width: 24px;" src="https://st.creative9.tech/favicon.ico" alt="..."> <span style="vertical-align: middle">Creative9</span>
-                 </h3>
-                 <h4 class="greeting" style="margin-bottom: 0px; font-size: 1em;">Reset your password!</h4>
-                 <p class="context" style="opacity: 0.9; line-height: 1.6;color:black">
-                  You are receiving this because you (or someone else) requested to reset your password. Click the following to reset your password.
-              </p>
-                 <p style="text-align: center; margin-top: 3em;margin-bottom:3em" class="btn-contain">
-                     <a class="verify-btn" style="background-color: #00A5AD; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" href="http://${req.get(
-                       "host"
-                     )}/forgot-password/${resetToken}">Reset Password</a>
-                 </p>
-                 <p class="info1">This Link will expire in 30 Minutes.</p>
-                 <p class="line" style="border-bottom: 1px solid #ccc; margin-bottom: 0px;"></p>
-                 <p class="info1" style="opacity: 0.8; font-size: 14px; margin-top: 1.5em; line-height: 1.4; margin-bottom: 0px;">
-                     If you don’t recognize this, you can safely ignore this email.
-                 </p>
-               
-             </td>
-         </tr>
-     </table>
-     <footer style="margin-top:2em;opacity: 0.7; font-size: 0.9em; line-height: 1.5;" class="footer">
-     <p style="text-align:center">
-         For any assistance, feel free to reach out:
-         Email: <a href="mailto:${process.env.USER}">${
-          process.env.USER
-        }</a>, or Contact our <a href="https://st.creative9.in/support"> support team.</a>
-     </p>
-  </footer>
-     </div>
-  `,
+        subject: "Reset your ShareText password",
+        html: `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reset your ShareText password</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f1f5f9;color:#f4f4f4;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f1f5f9;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:560px;background-color:#171717;border:1px solid #252b35;border-radius:16px;">
+            <tr>
+              <td style="padding:28px 28px 12px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" valign="middle" width="40" height="40" bgcolor="#19304a" style="width:40px;height:40px;padding:6px;border-radius:12px;background-color:#19304a;">
+                      <img src="${siteUrl}/images/copy.png" width="28" height="28" alt="" style="display:block;width:28px;height:28px;border:0;">
+                    </td>
+                    <td valign="middle" style="padding-left:12px;">
+                      <div style="color:#f4f4f4;font-size:20px;font-weight:700;letter-spacing:-0.4px;">Share<span style="color:#70b7ff;">Text</span></div>
+                      <div style="margin-top:4px;color:#9da6b2;font-size:10px;font-weight:700;letter-spacing:1.2px;">ACCOUNT SECURITY</div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 28px 8px;">
+                <p style="margin:0 0 10px;color:#70b7ff;font-size:11px;font-weight:700;letter-spacing:1.3px;">PASSWORD RESET</p>
+                <h1 style="margin:0 0 14px;color:#f4f4f4;font-size:26px;line-height:1.25;font-weight:700;">Reset your password</h1>
+                <p style="margin:0;color:#c5cbd3;font-size:15px;line-height:1.7;">We received a request to reset the password for your ShareText account. If you made this request, use the button below to choose a new password.</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:24px 28px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" bgcolor="#70b7ff" style="border-radius:8px;">
+                      <a href="${resetUrl}" style="display:inline-block;padding:14px 26px;border-radius:8px;color:#1b2633;font-size:15px;font-weight:700;line-height:20px;text-decoration:none;">Reset password</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#202327;border:1px solid #343a40;border-radius:10px;">
+                  <tr>
+                    <td style="padding:14px 16px;">
+                      <p style="margin:0 0 5px;color:#f4f4f4;font-size:14px;font-weight:700;">This link expires in 30 minutes</p>
+                      <p style="margin:0;color:#aeb7c2;font-size:13px;line-height:1.55;">For your security, the link can only be used once.</p>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:20px 0 6px;color:#c5cbd3;font-size:13px;line-height:1.6;">If the button does not work, copy and paste this address into your browser:</p>
+                <p style="margin:0;word-break:break-all;font-size:12px;line-height:1.6;"><a href="${resetUrl}" style="color:#84c5ff;text-decoration:underline;">${resetUrl}</a></p>
+                <p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #343a40;color:#aeb7c2;font-size:13px;line-height:1.6;">If you did not request a password reset, you can safely ignore this email. Your password will not change unless you use the link.</p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:18px 0 0;color:#64748b;font-size:12px;line-height:1.6;text-align:center;">Need help? <a href="${siteUrl}/support" style="color:#1769e0;text-decoration:underline;">Contact ShareText support</a>.</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`,
       };
 
       transporter.sendMail(mailOptions, (err) => {
@@ -629,6 +729,238 @@ app.post("/forgot-password/:token", async (req, res) => {
   }
 });
 
+app.get("/change-password", (req, res) => {
+  res.render("Account/change-password", { feedback: "", feedbackType: "" });
+});
+
+app.post("/change-password", loginSignupLimiter, async (req, res) => {
+  const body = req.body || {};
+  const identifier =
+    typeof body.identifier === "string"
+      ? body.identifier.trim().toLowerCase()
+      : "";
+  const currentPassword =
+    typeof body.currentPassword === "string" ? body.currentPassword : "";
+  const newPassword =
+    typeof body.newPassword === "string" ? body.newPassword : "";
+  const confirmPassword =
+    typeof body.confirmPassword === "string" ? body.confirmPassword : "";
+  const renderChangePassword = (feedback, feedbackType = "error", status = 200) =>
+    res
+      .status(status)
+      .render("Account/change-password", { feedback, feedbackType });
+
+  if (
+    identifier.length < 5 ||
+    currentPassword.length < 6 ||
+    newPassword.length < 6 ||
+    newPassword !== confirmPassword
+  ) {
+    return renderChangePassword(
+      "Enter valid account details and matching passwords of at least 6 characters.",
+      "error",
+      400
+    );
+  }
+
+  try {
+    const user = await User.findOne({
+      $or: [{ username: identifier }, { email: identifier }],
+    });
+
+    if (!user || !(await user.comparePassword(currentPassword))) {
+      return renderChangePassword(
+        "We couldn’t verify those account details. Check them and try again.",
+        "error",
+        400
+      );
+    }
+
+    if (await user.comparePassword(newPassword)) {
+      return renderChangePassword(
+        "Choose a new password that is different from your current password.",
+        "error",
+        400
+      );
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    return renderChangePassword("Your password has been updated.", "success");
+  } catch (error) {
+    console.error("Error changing account password:", error);
+    return renderChangePassword(
+      "We couldn’t update your password right now. Please try again later.",
+      "error",
+      500
+    );
+  }
+});
+
+app.get("/delete-account", (req, res) => {
+  res.render("Account/delete-account", { feedback: "" });
+});
+
+app.post("/delete-account", loginSignupLimiter, async (req, res) => {
+  const body = req.body || {};
+  const identifier =
+    typeof body.identifier === "string"
+      ? body.identifier.trim().toLowerCase()
+      : "";
+  const password = typeof body.password === "string" ? body.password : "";
+  const confirmation =
+    typeof body.confirmation === "string" ? body.confirmation.trim() : "";
+  const renderDeleteAccount = (feedback, status = 200) =>
+    res.status(status).render("Account/delete-account", { feedback });
+
+  if (identifier.length < 5 || password.length < 6 || confirmation !== "DELETE") {
+    return renderDeleteAccount(
+      "Enter your account details and type DELETE exactly to confirm.",
+      400
+    );
+  }
+
+  try {
+    const user = await User.findOne({
+      $or: [{ username: identifier }, { email: identifier }],
+    });
+
+    if (!user || !(await user.comparePassword(password))) {
+      return renderDeleteAccount(
+        "We couldn’t verify those account details. Check them and try again.",
+        400
+      );
+    }
+
+    const token = jwt.sign(
+      { userId: String(user._id), purpose: "delete-account" },
+      process.env.SECRET,
+      { expiresIn: "30m" }
+    );
+    user.deleteAccountToken = token;
+    await user.save();
+
+    const siteUrl = `${req.protocol}://${req.get("host")}`;
+    const confirmationUrl = `${siteUrl}/delete-account/confirm/${encodeURIComponent(token)}`;
+    const transporter = nodemailer.createTransport({
+      host: process.env.HOST,
+      secure: true,
+      port: 465,
+      auth: {
+        user: process.env.USER,
+        pass: process.env.PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `ShareText <${process.env.USER}>`,
+      to: user.email,
+      subject: "Confirm your ShareText account deletion",
+      html: buildAccountDeletionEmail(siteUrl, confirmationUrl),
+    });
+
+    return res.render("Account/delete-account-pending");
+  } catch (error) {
+    console.error("Error requesting account deletion:", error);
+    return renderDeleteAccount(
+      "We couldn’t send the confirmation email. Please try again later.",
+      500
+    );
+  }
+});
+
+app.get("/delete-account/confirm/:token", async (req, res) => {
+  const { token } = req.params;
+  const renderDeleteAccount = (feedback, status = 400) =>
+    res.status(status).render("Account/delete-account", { feedback });
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET);
+  } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      return renderDeleteAccount(
+        "This confirmation link is invalid or expired. Please submit your deletion request again."
+      );
+    }
+    console.error("Error verifying account deletion link:", error);
+    return renderDeleteAccount(
+      "We couldn’t confirm the deletion request. Please try again later.",
+      500
+    );
+  }
+
+  if (
+    typeof decoded !== "object" ||
+    decoded === null ||
+    decoded.purpose !== "delete-account" ||
+    typeof decoded.userId !== "string"
+  ) {
+    return renderDeleteAccount(
+      "This confirmation link is invalid or expired. Please submit your deletion request again."
+    );
+  }
+
+  let deletedUserId = null;
+  let mongoSession;
+
+  try {
+    mongoSession = await mongoose.startSession();
+    await mongoSession.withTransaction(async () => {
+      deletedUserId = null;
+      const user = await User.findOne({
+        _id: decoded.userId,
+        deleteAccountToken: token,
+      }).session(mongoSession);
+
+      if (!user) {
+        return;
+      }
+
+      deletedUserId = user._id;
+      await Text.deleteMany({ user: user._id }, { session: mongoSession });
+      await backupText.deleteMany({ user: user._id }, { session: mongoSession });
+      const result = await User.deleteOne(
+        { _id: user._id, deleteAccountToken: token },
+        { session: mongoSession }
+      );
+
+      if (result.deletedCount !== 1) {
+        throw new Error("Account was not deleted");
+      }
+    });
+  } catch (error) {
+    console.error("Error deleting account after email confirmation:", error);
+    return renderDeleteAccount(
+      "We couldn’t delete your account right now. Please try again later.",
+      500
+    );
+  } finally {
+    if (mongoSession) {
+      await mongoSession.endSession();
+    }
+  }
+
+  if (!deletedUserId) {
+    return renderDeleteAccount(
+      "This confirmation link is invalid or has already been used. Please submit your deletion request again."
+    );
+  }
+
+  const renderSuccess = () => res.render("Account/delete-account-success");
+  if (String(req.session.user?.userId) === String(deletedUserId)) {
+    return req.session.destroy((error) => {
+      if (error) {
+        console.error("Error ending session after account deletion:", error);
+      }
+      renderSuccess();
+    });
+  }
+
+  return renderSuccess();
+});
+
 const authMiddleware = async (req, res, next) => {
   if (req.session && req.session.user) {
     next();
@@ -641,9 +973,6 @@ app.use(authMiddleware);
 
 app.get("/logout", (req, res) => {
   try {
-    req.session.user = null;
-    req.session.save();
-
     req.session.destroy((err) => {
       if (err) {
         console.error("Error destroying session:", err);
@@ -686,9 +1015,8 @@ app.get("/data-updates", (req, res) => {
   });
 
   // Handle SSE client disconnect
-  req.on("close", () => {
+  res.on("close", () => {
     changeStream.close();
-    res.end();
   });
 });
 
@@ -706,61 +1034,50 @@ app.get("/gettext", async (req, res, next) => {
   try {
     let text;
     if (req.query.value == `!`) {
-      text = await Text.find({ user: userid }).sort({ pin: -1, created: -1 });
+      text = await Text.find({ user: userid }).sort({
+        pin: -1,
+        pinnedAt: -1,
+        created: -1,
+      });
     } else {
       text = await Text.find({ user: userid, hidden: false }).sort({
         pin: -1,
+        pinnedAt: -1,
         created: -1,
       });
     }
 
     const newText = [];
+    const now = dayjs();
     text.forEach((item) => {
       let newItem = {
         _id: item._id,
         text: item.text,
         important: item.important,
+        restored: Boolean(item.restoredFrom),
         pin: item.pin,
         hidden: item.hidden,
       }; // create a copy of the item to modify its properties
 
-      let itemHour = dayjs(item.created.toString()).utc().local().hour();
-      let itemMinute = dayjs(item.created.toString()).utc().local().minute();
-      let itemDay = dayjs(item.created.toString()).utc().local().date();
-      let itemMonth = dayjs(item.created.toString()).utc().local().month();
-      let itemYear = dayjs(item.created.toString()).utc().local().year();
-      let currentHour = dayjs().local().hour();
-      let currentMinute = dayjs().local().minute();
-      let currentDay = dayjs().local().date();
-      let currentMonth = dayjs().local().month();
-      let currentYear = dayjs().local().year();
-      if (
-        itemYear === currentYear &&
-        itemMonth === currentMonth &&
-        itemDay === currentDay &&
-        itemHour === currentHour &&
-        itemMinute === currentMinute
-      ) {
+      const createdAt = dayjs(item.created);
+      const elapsedMinutes = Math.max(0, now.diff(createdAt, "minute"));
+      if (elapsedMinutes === 0) {
         newItem.created = "Just now";
-      } else if (
-        itemYear === currentYear &&
-        itemMonth === currentMonth &&
-        itemDay === currentDay &&
-        itemHour === currentHour
-      ) {
-        newItem.created = `${currentMinute - itemMinute} min. ago`;
-      } else if (
-        itemYear === currentYear &&
-        itemMonth === currentMonth &&
-        itemDay === currentDay
-      ) {
-        newItem.created = `${currentHour - itemHour} hours ago`;
-      } else if (itemYear === currentYear && itemMonth === currentMonth) {
-        newItem.created = `${currentDay - itemDay} days ago`;
-      } else if (itemYear === currentYear) {
-        newItem.created = `${currentMonth - itemMonth} months ago`;
-      } else if (itemYear !== currentYear) {
-        newItem.created = `${currentYear - itemYear} years ago`;
+      } else if (elapsedMinutes < 60) {
+        newItem.created = `${elapsedMinutes}m ago`;
+      } else if (elapsedMinutes < 24 * 60) {
+        const hours = Math.floor(elapsedMinutes / 60);
+        newItem.created = `${hours}h ago`;
+      } else {
+        const elapsedMonths = now.diff(createdAt, "month");
+        const elapsedYears = now.diff(createdAt, "year");
+        if (elapsedMonths >= 12) {
+          newItem.created = `${elapsedYears}y ago`;
+        } else if (elapsedMonths >= 1) {
+          newItem.created = `${elapsedMonths}mo ago`;
+        } else {
+          newItem.created = `${Math.floor(elapsedMinutes / (24 * 60))}d ago`;
+        }
       }
       newText.push(newItem); // add the updated item to the new array
     });
@@ -773,12 +1090,11 @@ app.get("/gettext", async (req, res, next) => {
 
 app.post("/addtext", async (req, res, next) => {
 
-  if (!req.session.user.userId) {
+  const userid = req.session?.user?.userId;
+  if (!userid) {
     return res.status(400).json({ msg: "Bad request" });
   }
-  let userid = req.session.user.userId;
   try {
-    req.body.user = req.session.user.userId;
     if (!req.body.text) {
       return res.status(400).json({ msg: "Please enter text" });
     } else if (req.body.text.includes("+n")) {
@@ -804,26 +1120,100 @@ app.post("/addtext", async (req, res, next) => {
       req.body.hidden = true;
       req.body.important = true;
     } else if (req.body.text == `!removehidden`) {
-      let text = await Text.deleteMany({ user: userid, hidden: true });
-      res.json(text);
+      const hiddenTexts = await Text.find({ user: userid, hidden: true })
+        .select("_id")
+        .lean();
+      const result = await Text.deleteMany({ user: userid, hidden: true });
+      if (hiddenTexts.length > 0) {
+        await User.findByIdAndUpdate(userid, {
+          $pull: { texts: { $in: hiddenTexts.map((item) => item._id) } },
+        });
+      }
+      res.json(result);
       return;
     } else if (req.body.text == `!restore`) {
-      let backuptext = await backupText.find({ user: userid });
-      backuptext.forEach(async (eachtext) => {
-        delete eachtext.createdAt;
-
-        const uptext = new Text({
-          text: eachtext.text,
-          important: true,
-          user: userid,
-        });
-        await uptext.save();
+      const backups = await backupText.find({ user: userid }).sort({
+        created: 1,
+        _id: 1,
       });
+      const restoredTextIds = [];
+      const backupIds = backups.map((backup) => backup._id);
+      const sourceTextIds = backups
+        .map((backup) => backup.sourceTextId)
+        .filter(Boolean);
+      const [existingSourceTexts, existingRestoredTexts] = await Promise.all([
+        Text.find({ user: userid, _id: { $in: sourceTextIds } })
+          .select("_id")
+          .lean(),
+        Text.find({ user: userid, restoredFrom: { $in: backupIds } })
+          .select("_id restoredFrom")
+          .lean(),
+      ]);
+      const existingSourceIds = new Set(
+        existingSourceTexts.map((item) => item._id.toString())
+      );
+      const restoredByBackupId = new Map(
+        existingRestoredTexts.map((item) => [
+          item.restoredFrom.toString(),
+          item._id,
+        ])
+      );
 
-      res.json(backuptext);
+      for (const backup of backups) {
+        if (
+          backup.sourceTextId &&
+          existingSourceIds.has(backup.sourceTextId.toString())
+        ) {
+          restoredTextIds.push(backup.sourceTextId);
+          continue;
+        }
+
+        let restoredTextId = restoredByBackupId.get(backup._id.toString());
+        if (!restoredTextId) {
+          try {
+            const restoredText = await Text.create({
+              text: backup.text,
+              important: false,
+              user: userid,
+              restoredFrom: backup._id,
+            });
+            restoredTextId = restoredText._id;
+          } catch (error) {
+            if (error.code !== 11000) {
+              throw error;
+            }
+            const restoredText = await Text.findOne({
+              user: userid,
+              restoredFrom: backup._id,
+            }).select("_id");
+            if (!restoredText) {
+              throw error;
+            }
+            restoredTextId = restoredText._id;
+          }
+        }
+
+        restoredTextIds.push(restoredTextId);
+      }
+
+      if (restoredTextIds.length > 0) {
+        await User.findByIdAndUpdate(userid, {
+          $addToSet: { texts: { $each: restoredTextIds } },
+        });
+      }
+
+      res.json(
+        backups.map((backup) => {
+          const item = backup.toObject();
+          delete item.createdAt;
+          delete item.sourceTextId;
+          return item;
+        })
+      );
       return;
     } else if (req.body.text == `!removebackups`) {
       await backupText.deleteMany({ user: userid });
+      await User.findByIdAndUpdate(userid, { $set: { backups: [] } });
       res.json({ success: "backups removed" });
       return;
     } else if (req.body.text == `!commands`) {
@@ -844,96 +1234,93 @@ app.post("/addtext", async (req, res, next) => {
       return res.json(text);
     }
     let text;
-    let textobjectids;
     if (req.body.text.includes("+n")) {
-      text = req.body.text
+      const textItems = req.body.text
         .split("+n")
         .filter((item) => item.trim() !== "")
         .map((item) => {
-          return { text: item.trim(), user: req.session.user.userId };
+          return { text: item.trim(), user: userid };
         });
 
-      textobjectids = await Text.insertMany(text);
-      textobjectids = textobjectids.map((item) => item._id);
-
-      await User.findByIdAndUpdate(req.body.user, {
-        $push: { texts: { $each: textobjectids } },
-      });
+      text = await Text.insertMany(textItems);
     } else {
-      text = new Text(req.body);
-
+      text = new Text({
+        text: req.body.text,
+        created: req.body.created,
+        pinnedAt: req.body.pinnedAt,
+        important: req.body.important,
+        pin: req.body.pin,
+        hidden: req.body.hidden,
+        user: userid,
+      });
       await text.save();
-
-      await User.findByIdAndUpdate(req.body.user, {
-        $push: { texts: text._id },
-      });
     }
+
+    const savedTexts = Array.isArray(text) ? text : [text];
+    await backupText.insertMany(
+      savedTexts.map((item) => ({
+        text: item.text,
+        created: item.created,
+        important: item.important,
+        pin: item.pin,
+        hidden: item.hidden,
+        user: userid,
+        sourceTextId: item._id,
+      }))
+    );
+    await User.findByIdAndUpdate(userid, {
+      $addToSet: { texts: { $each: savedTexts.map((item) => item._id) } },
+    });
+
     res.json(text);
-    if (req.body.text.includes("+n")) {
-      backupText
-        .insertMany(text)
-        .then((insertedBackups) => {
-          User.findByIdAndUpdate(req.body.user, {
-            $push: {
-              backups: { $each: insertedBackups.map((backup) => backup._id) },
-            },
-          }).catch((updateErr) => {
-            console.error("Error updating user with backups:", updateErr);
-          });
-        })
-        .catch((backupErr) => {
-          console.error("Error inserting backups:", backupErr);
-        });
-    } else {
-      const backuptext = new backupText(req.body);
-
-      backuptext
-        .save()
-        .then((savedBackup) => {
-          User.findByIdAndUpdate(req.body.user, {
-            $push: { backups: savedBackup._id },
-          }).catch((updateErr) => {
-            console.error("Error updating user with backup:", updateErr);
-          });
-        })
-        .catch((saveErr) => {
-          console.error("Error saving backup:", saveErr);
-        });
-    }
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
-    console.log(err);
+    console.error("Error adding text and backup:", err);
   }
 });
 
 app.get("/deletetext", async (req, res, next) => {
-  if (!req.session.user.userId) {
+  const userid = req.session?.user?.userId;
+  if (!userid) {
     return res.status(400).json({ msg: "Bad request" });
   }
-  let userid = req.session.user.userId;
   try {
-    const text = await Text.deleteMany({ user: userid, hidden: false });
+    const visibleTexts = await Text.find({ user: userid, hidden: false })
+      .select("_id")
+      .lean();
+    const result = await Text.deleteMany({ user: userid, hidden: false });
+    if (visibleTexts.length > 0) {
+      await User.findByIdAndUpdate(userid, {
+        $pull: { texts: { $in: visibleTexts.map((item) => item._id) } },
+      });
+    }
 
-    res.json(text);
+    res.json(result);
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
+    console.error("Error deleting texts:", err);
   }
 });
 
 app.post("/deleteone", async (req, res, next) => {
-  if (!req.session.user.userId) {
+  const userid = req.session?.user?.userId;
+  if (!userid) {
     return res.status(400).json({ msg: "Bad request" });
   }
-  let userid = req.session.user.userId;
   try {
     const text = await Text.findOneAndDelete({
       _id: req.body.id,
       user: userid,
     });
+    if (text) {
+      await User.findByIdAndUpdate(userid, {
+        $pull: { texts: text._id },
+      });
+    }
     res.json(text);
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
-    console.log(err);
+    console.error("Error deleting text:", err);
   }
 });
 app.post("/important", async (req, res, next) => {
@@ -973,7 +1360,7 @@ app.post("/pintop", async (req, res, next) => {
     if (item.pin) {
       let response = await Text.findByIdAndUpdate(
         req.body.id,
-        { pin: false },
+        { pin: false, pinnedAt: null },
         { new: true }
       );
 
@@ -981,7 +1368,7 @@ app.post("/pintop", async (req, res, next) => {
     } else {
       let response = await Text.findByIdAndUpdate(
         req.body.id,
-        { pin: true, created: Date.now() },
+        { pin: true, pinnedAt: Date.now() },
         { new: true }
       );
 
@@ -1003,7 +1390,10 @@ app.post("/edit", async (req, res) => {
     }
     let response = await Text.findOneAndUpdate(
       { _id: req.body.id, user: userId },
-      { text: req.body.text, created: Date.now() },
+      {
+        $set: { text: req.body.text, created: Date.now() },
+        $unset: { restoredFrom: 1 },
+      },
       { new: true }
     );
     res.json(response);

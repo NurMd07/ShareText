@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your email | ShareText</title>
+  <link rel="stylesheet" href="/css/login/auth.css">
+</head>
+<body class="auth-page auth-page-delete-account">
+  <main class="auth-layout auth-layout-account">
+    <a class="brand auth-brand heading" href="/" aria-label="ShareText home">
+      <span class="brand-mark">
+        <img class="brand-logo" src="/images/copy.png" alt="">
+      </span>
+      <h1 class="brand-title"><span>Share</span><span class="brand-title-accent">Text</span></h1>
+    </a>
+
+    <section class="auth-card" aria-labelledby="delete-account-pending-title">
+      <header class="auth-card-header">
+        <div class="auth-heading-row auth-result-heading">
+          <span class="auth-result-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m5 7 7 5.5L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h2 class="auth-title" id="delete-account-pending-title">Check your email</h2>
+        </div>
+        <p class="auth-description">We sent a confirmation link to the email address on your account.</p>
+        <p class="auth-description">Open the link within 30 minutes to permanently delete your account, saved text, and backups. Your account remains active until then.</p>
+      </header>
+
+      <div class="auth-result-actions">
+        <a href="/login" class="auth-submit">Return to sign in</a>
+      </div>
+    </section>
+  </main>
+  <%- include("../partials/auth-page-menu") %>
+  <script src="/js/login/auth-menu.js"></script>
+</body>
+</html>

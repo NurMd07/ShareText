@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account | ShareText</title>
+  <link rel="stylesheet" href="/css/login/auth.css">
+</head>
+<body class="auth-page auth-page-delete-account">
+  <main class="auth-layout auth-layout-account auth-layout-delete-account">
+    <a class="brand auth-brand heading" href="/" aria-label="ShareText home">
+      <span class="brand-mark">
+        <img class="brand-logo" src="/images/copy.png" alt="">
+      </span>
+      <h1 class="brand-title"><span>Share</span><span class="brand-title-accent">Text</span></h1>
+    </a>
+
+    <section class="auth-card" aria-labelledby="delete-account-title">
+      <header class="auth-card-header">
+        <div class="auth-heading-row">
+          <span class="auth-section-icon auth-delete-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16M9 7V4h6v3m3 0-.8 13H6.8L6 7m4 4v5m4-5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h2 class="auth-title" id="delete-account-title">Delete account</h2>
+        </div>
+        <p class="auth-description">This permanently deletes your account, saved text, and backups. This action cannot be undone.</p>
+      </header>
+
+      <% if (feedback) { %>
+        <p class="auth-feedback" role="alert" aria-live="polite"><%= feedback %></p>
+      <% } %>
+
+      <form class="auth-form auth-account-form auth-delete-account-form" method="POST" action="/delete-account">
+        <div class="auth-field-group">
+          <label class="auth-field-label" for="delete-identifier">Username or email</label>
+          <span class="auth-field-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4.1 0-7 2.1-7 4.5V20h14v-1.5c0-2.4-2.9-4.5-7-4.5Z"/>
+            </svg>
+          </span>
+          <input id="delete-identifier" name="identifier" type="text" class="form-control auth-field" autocomplete="username" autocapitalize="none" placeholder="Enter your username or email" required>
+        </div>
+        <div class="auth-field-group">
+          <label class="auth-field-label" for="delete-password">Current password</label>
+          <span class="auth-field-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"/>
+            </svg>
+          </span>
+          <input id="delete-password" name="password" type="password" class="form-control auth-field" autocomplete="current-password" minlength="6" placeholder="Enter your current password" required>
+        </div>
+        <div class="auth-field-group">
+          <label class="auth-field-label" for="delete-confirmation">Type DELETE to confirm</label>
+          <span class="auth-field-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3 21 19H3L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 9v4m0 3h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input id="delete-confirmation" name="confirmation" type="text" class="form-control auth-field" autocomplete="off" autocapitalize="characters" placeholder="Type DELETE" required>
+        </div>
+        <button type="submit" class="auth-submit auth-submit-danger">
+          <span class="auth-submit-label">Delete my account</span>
+          <span class="auth-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <p class="auth-footer"><a class="auth-link" href="/login">Keep my account and go back</a></p>
+    </section>
+  </main>
+  <%- include("../partials/auth-page-menu") %>
+  <script src="/js/login/auth-menu.js"></script>
+  <script>
+    const deleteAccountForm = document.querySelector(".auth-delete-account-form");
+    const deleteAccountButton = deleteAccountForm.querySelector('button[type="submit"]');
+
+    deleteAccountForm.addEventListener("submit", (event) => {
+      if (deleteAccountForm.dataset.submitting === "true") {
+        event.preventDefault();
+        return;
+      }
+
+      deleteAccountForm.dataset.submitting = "true";
+      deleteAccountButton.disabled = true;
+      deleteAccountButton.setAttribute("aria-busy", "true");
+      deleteAccountButton.classList.add("is-loading");
+      deleteAccountButton.querySelector(".auth-submit-label").textContent =
+        "Sending confirmation...";
+    });
+  </script>
+</body>
+</html>

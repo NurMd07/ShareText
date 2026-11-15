@@ -1,298 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Email</title>
-    <style>
-        .main{
-            text-align: center;
-            margin:0 auto;
-            max-width:700px;
-            padding:10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .line{
-            width: 100%;
-            margin: 0 auto;
-            border: 1px solid #000;
-        }
-        .resend{
-            color: blue;
-            padding:4px 8px;
-            border: 1px solid blue;
-            border-radius: 3px;
-            text-decoration: none;
-            margin-left:1em;
-            font-size:15px;
-        }
-        .resend:hover{
-            color: #fff;
-            background-color: blue;
-        }
-        
-        .info2{
-         
-            margin-top: 1.5em;
-        }
-       
-        .btn{
-            color: green;
-            padding:4px 8px;
-            border: 1px solid green;
-            border-radius: 3px;
-            text-decoration: none;
-            margin-left:0.5em;
-            font-size:15px;
-           
-        }
-        .btn:hover{
-            color: #fff;
-            background-color: green;
-        }
-        .footer{
-       margin-top: 3em;
-max-width: 400px;
-       border:1px solid #ccc;
-       border-radius: 10px;
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       flex-direction: column;
-       padding:0.5em 1em;
-       line-height: 0.5;
-       box-shadow:1px 1px 1px 1px #ccc;
-        }
-        .heading {
-  position: fixed;
-  bottom: 1.5em;
-  left: 50%; /* set left to 50% */
-  transform: translateX(-50%); /* move the div left by half of its width */
-  cursor:pointer;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    <title>Email Verification | ShareText</title>
+    <link rel="stylesheet" href="/css/login/auth.css">
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <a class="brand auth-brand heading" href="/" aria-label="ShareText home">
+        <span class="brand-mark">
+          <img class="brand-logo" src="/images/copy.png" alt="">
+        </span>
+        <h1 class="brand-title"><span>Share</span><span class="brand-title-accent">Text</span></h1>
+      </a>
 
+      <section class="auth-card" aria-labelledby="verification-title">
+        <% if (error) { %>
+          <header class="auth-card-header">
+            <div class="auth-heading-row auth-result-heading">
+              <span class="auth-result-icon error" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 8v5m0 3h.01M10.3 3.9 2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="auth-title" id="verification-title">We couldn’t send your email</h2>
+            </div>
+            <p class="auth-description">Your account is ready, but the verification message did not send. Try again below.</p>
+          </header>
+        <% } else { %>
+          <header class="auth-card-header">
+            <div class="auth-heading-row auth-result-heading">
+              <span class="auth-result-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="m5 7 7 5.5L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="auth-title" id="verification-title">Check your inbox</h2>
+            </div>
+            <p class="auth-description">We sent you a verification link. It’s valid for 30 minutes. If you don’t see it, check your spam or junk folder.</p>
+          </header>
+        <% } %>
 
-.main-img{
-    width:1.6em;
-    margin-right:7px;
-    vertical-align: center;
-  }
-
- .heading h1{
-    font-size:1.3em;
-    vertical-align: center;
-    font-family: Arial;
-    letter-spacing: 0.5px;
-}
-
-  @media only screen and (max-width: 600px) {
-   
-    .main-img{
-      width:1.5em;
-     
-    }
-    .heading h1{
-font-size: 1.3em;
-}
-  }
-
-  .info1{
-    line-height: 2;
-  }
-
-
-
-  <% if(error){ %>
-
-.finfo1{
-margin-bottom: 0px;
-line-height: 1.5;
-
-}
-.finfo2{
-line-height: 1.5;
-}
-.fbtn{
-    color: blue;
-            padding:4px 8px;
-            border: 1px solid blue;
-            border-radius: 3px;
-            text-decoration: none;
-            margin-left:1em;
-            font-size:14px;
-        margin-top: 1em;
-            display: inline-block;
-}
-<% } %>
-.hidden{
-    display: none;
-}
-.timer{
-margin-left: 0.7em;
-font-weight: 600;
-font-family: 'Courier New', Courier, monospace;
-}
-.success:hover{
-    color: #fff;
-    background-color: green;
-}
-.success{
-    color: green;
-    background-color:white ;
-    border:1px solid green;
-}
-.wait{
-    color: rgb(255, 111, 0);
-    background-color:white;
-    border:1px solid rgb(255, 111, 0);
-}
-.wait:hover{
-    color: white;
-    background-color:rgb(255, 111, 0);
-  
-}
-    </style>
-</head>
-<body>
-    
-    <div class="main">
-
-     
-<% if(error){ %>
-        <h3 >Something went wrong!</h3>
-        <p class="line"></p>
-
-       
-
-        <p class="finfo1" >Fail to send email verification link.</P>
-            <P class="finfo2">Either <b>Sign up</b> later or click here to retry : <span class="fbtn resend" href=""> Resend Link  </span><span class='timer hidden'>89</span></p>
-      <%      }else{ %>
-   <h3>Email Verification Sent.</h3> 
-   <p class="line"></p>
- <p class="info1" >Check you email to complete account sign up. Link is valid for 30 minutes.</p>
-        <p class="info2">Didn't recieve email? <span class="resend"  href=""> Resend </span><span class='timer hidden'>89</span></p>
-
-           <% } %>
-        <div class="footer">
-            <p class="login">Already have an account (<b> Verified </b>)? </p>
-            <p>Continue to <a class="btn" href="/login"> Login </a></p>
+        <div class="auth-resend-section">
+          <p class="auth-resend-prompt">
+            <% if (error) { %>
+              Need another attempt?
+            <% } else { %>
+              Didn’t receive the email?
+            <% } %>
+          </p>
+          <div class="auth-resend-row">
+            <button type="button" class="auth-resend resend">
+              <% if (error) { %>Resend link<% } else { %>Resend email<% } %>
+            </button>
+            <span class="timer hidden" aria-live="polite"></span>
+          </div>
         </div>
-      
-    </div>
- 
-    <div class="heading">
-        <img class="main-img" src="images/copy.png" alt="Not Found" />
-        <h1 class="l1">Share Text</h1>
-        </div>
-   
-        <script>
-  
 
-    let heading = document.querySelector('.heading');
-    heading.addEventListener('click', () => {
-        window.location.href = '/';
-    });
+        <p class="auth-footer"><a class="auth-link" href="/login">Already verified? Sign in</a></p>
+      </section>
+    </main>
 
-    let resend = document.querySelector('.resend');
-    let timer = document.querySelector('.timer');
+    <script>
+      const resend = document.querySelector(".resend");
+      const timer = document.querySelector(".timer");
 
-    if (resend) {
-        resend.addEventListener('click', () => {
-            if (resend.style.cursor === 'not-allowed') {
-                return;
-            }
-           send();
-        });
-    }
+      resend.addEventListener("click", () => {
+        if (resend.style.cursor === "not-allowed") {
+          return;
+        }
 
-    function send(){
-    resend.style.cursor = 'not-allowed';
-    resend.textContent = 'Sending ...'
+        sendVerificationEmail();
+      });
 
+      function sendVerificationEmail() {
+        resend.style.cursor = "not-allowed";
+        resend.textContent = "Sending…";
 
-    let timeLeft = 90; // 90 seconds
-    timer.textContent = timeLeft;
-    timer.classList.remove('hidden');
-
-    let interval1 = setInterval(() => {
-        timeLeft--;
+        let timeLeft = 90;
         timer.textContent = timeLeft;
+        timer.classList.remove("hidden");
 
-        if (timeLeft <= 0) {
-            clearInterval(interval1);
-            resend.style.cursor = 'pointer';
-            resend.textContent = 'Resend';
-            timer.classList.add('hidden');
-            resend.classList.remove('wait');
-        }
-    }, 1000);
+        const interval = setInterval(() => {
+          timeLeft -= 1;
+          timer.textContent = timeLeft;
 
+          if (timeLeft <= 0) {
+            clearInterval(interval);
+            resend.style.cursor = "pointer";
+            resend.textContent = "Resend email";
+            timer.classList.add("hidden");
+            resend.classList.remove("wait");
+          }
+        }, 1000);
 
-
-  
-
-    fetch('/resend-verification-email',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },body:JSON.stringify({
-            msg:'verify'
+        fetch("/resend-verification-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ msg: "verify" }),
         })
-    }).then(res=>res.json()).then(data=>{
-console.log(data)
-        if(data.status === 'success'){
-           
-    resend.textContent = 'Sent Successfully';
-    timer.classList.remove('hidden');
-    resend.classList.add('success');
-    setTimeout(()=>{
-        resend.textContent = 'Resend in ...'
-        resend.classList.remove('success');
-        resend.classList.add('wait');
-    },5000);
-        }else if(data.message=='Email Already Verified'){
-            resend.textContent = 'Email Already Verified';
-            timer.classList.add('hidden');
-            resend.style.cursor = 'not-allowed';
-            clearInterval(interval1);
-        }else if(data.message=="cooldown"){
-        
-            resend.textContent = 'Resend in ...';
-        
-    }else if(data.message=='Email Not Found'){
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              resend.textContent = "Sent successfully";
+              resend.classList.add("success");
+              setTimeout(() => {
+                resend.textContent = "Resend in…";
+                resend.classList.remove("success");
+                resend.classList.add("wait");
+              }, 5000);
+              return;
+            }
 
-        resend.textContent = 'Email Not Found';
-        timer.classList.add('hidden');
-        resend.style.cursor = 'not-allowed';
-        clearInterval(interval1);
+            if (data.message === "Email Already Verified") {
+              resend.textContent = "Email already verified";
+              timer.classList.add("hidden");
+              clearInterval(interval);
+              return;
+            }
 
-    }else{
-            resend.textContent = 'Failed to send';
-            resend.classList.add('wait');
-            setTimeout(()=>{
-                resend.textContent = 'Retry in ...';
-                resend.classList.remove('wait');
-            },5000);
-        }
-    }).catch(err=>{
-        resend.textContent = 'Failed to send';
-            resend.classList.add('wait');
-            setTimeout(()=>{
-                resend.textContent = 'Retry in ...';
-                resend.classList.remove('wait');
-            },5000);
-    })
+            if (data.message === "Email Not Found") {
+              resend.textContent = "Email not found";
+              timer.classList.add("hidden");
+              clearInterval(interval);
+              return;
+            }
 
-}
-            </script>
-</body>
+            resend.textContent = data.message === "cooldown" ? "Resend in…" : "Failed to send";
+            if (data.message !== "cooldown") {
+              resend.classList.add("wait");
+            }
+          })
+          .catch(() => {
+            resend.textContent = "Failed to send";
+            resend.classList.add("wait");
+          });
+      }
+    </script>
+  </body>
 </html>

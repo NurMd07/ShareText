@@ -1,0 +1,74 @@
+<div class="auth-page-menu">
+  <button
+    type="button"
+    class="auth-menu-toggle"
+    aria-label="Open menu"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="auth-page-menu"
+  >
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="m3 6 5 5 5-5" />
+    </svg>
+  </button>
+
+  <nav id="auth-page-menu" class="auth-menu" aria-label="ShareText links" hidden>
+    <a class="auth-menu-item auth-menu-item-home" href="/">
+      <span>Home</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="m2 7 6-5 6 5v6.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V7Z" />
+        <path d="M6 14V9h4v5" />
+      </svg>
+    </a>
+    <button type="button" class="auth-menu-item" data-auth-about>
+      <span>About</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 7.25v4.5M8 4.25h.01M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Z" />
+      </svg>
+    </button>
+    <a class="auth-menu-item" href="/change-password">
+      <span>Change password</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M10.5 2.5a3 3 0 0 0-3.8 3.8l-4.2 4.2V13h2.5v-1.5h1.5V10h1.5l1-1a3 3 0 0 0 1.5-6.5ZM11 5h.01" />
+      </svg>
+    </a>
+    <a class="auth-menu-item auth-menu-item-danger" href="/delete-account">
+      <span>Delete account</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M3 4h10M6 4V2.5h4V4m2 0-.6 9H4.6L4 4m2.5 2v4.5m3-4.5v4.5" />
+      </svg>
+    </a>
+    <a class="auth-menu-item" href="/support">
+      <span>Contact us</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h9A1.5 1.5 0 0 1 14 3.5v6a1.5 1.5 0 0 1-1.5 1.5h-5L4 14v-3H3.5A1.5 1.5 0 0 1 2 9.5v-6Z" />
+        <path d="M5 5.5h6M5 8h4" />
+      </svg>
+    </a>
+  </nav>
+</div>
+
+<div class="auth-about-overlay" data-auth-about-overlay hidden>
+  <section
+    class="auth-about-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="auth-about-title"
+    aria-describedby="auth-about-description"
+    tabindex="-1"
+  >
+    <button type="button" class="auth-about-close" aria-label="Close About ShareText">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="m4 4 8 8m0-8-8 8" />
+      </svg>
+    </button>
+    <span class="auth-about-icon">
+      <img src="/images/copy.png" alt="">
+    </span>
+    <p class="auth-about-eyebrow">ABOUT</p>
+    <h2 id="auth-about-title">ShareText</h2>
+    <p id="auth-about-description">
+      Share text across your devices, faster and more easily. Save notes to your account and access them whenever you sign in.
+    </p>
+  </section>
+</div>
