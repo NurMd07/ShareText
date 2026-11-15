@@ -112,6 +112,10 @@ html {
   justify-content: space-between;
 }
 
+body {
+  min-height: 0;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -516,6 +520,25 @@ svg {
 }
 
 @media screen and (max-width: 599px) {
+  .container-fluid {
+    overflow: hidden;
+  }
+
+  .container-fluid > .maincontent1 {
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+    scroll-padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+  }
+
+  .composer-form {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding-top: 1.8rem;
+    background-color: var(--bg-color);
+  }
+
   .composer-random-icon {
     width: 1.4rem;
     height: 1.4rem;
