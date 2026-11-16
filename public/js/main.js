@@ -133,6 +133,13 @@ function Empty() {
   empty.style.display = "inline-block";
 }
 Empty();
+function restoreListScrollPosition(scrollTop) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      list.scrollTop = scrollTop;
+    });
+  });
+}
 function Fill() {
   fill.style.display = "inline-block";
   empty.style.display = "none";
@@ -142,7 +149,8 @@ async function getText(
   isError = false,
   isSuccess = false,
   secret = "nothere",
-  newlyAddedTextIds = []
+  newlyAddedTextIds = [],
+  scrollTop = list.scrollTop
 ) {
   if (interval) {
     clearTimeout(interval);
@@ -198,6 +206,7 @@ async function getText(
         `;
         li.classList.add("no-text");
         list.appendChild(li);
+        restoreListScrollPosition(scrollTop);
         Empty();
         return;
       }
@@ -245,6 +254,7 @@ async function getText(
 
         Fill();
       });
+      restoreListScrollPosition(scrollTop);
     })
     .catch((err) => {
       let li = document.createElement("li");
@@ -1073,6 +1083,7 @@ function nodeInserted(node) {
       .querySelector(".important")
       .addEventListener("click", function (eg) {
         eg.preventDefault();
+        const scrollTop = list.scrollTop;
         loader.style.display = "inline-block";
         fetch("important", {
           method: "POST",
@@ -1107,7 +1118,7 @@ function nodeInserted(node) {
               newNode.querySelector(".pinstar").style.display = "none";
             }
             loader.style.display = "none";
-            getText();
+            getText(false, false, "nothere", [], scrollTop);
           })
           .catch((err) => {
             let li = document.createElement("li");
@@ -1410,6 +1421,38 @@ submit.addEventListener("click", (e) => {
 let subdata = null;
 
 let text = document.querySelector('textarea[name="text"]');
+const visualViewport = window.visualViewport;
+let composerViewportHeightBeforeKeyboard = null;
+let composerKeyboardWasOpen = false;
+
+text.addEventListener("focus", () => {
+  if (visualViewport) {
+    composerViewportHeightBeforeKeyboard = visualViewport.height;
+    composerKeyboardWasOpen = false;
+  }
+});
+
+if (visualViewport) {
+  visualViewport.addEventListener("resize", () => {
+    if (composerViewportHeightBeforeKeyboard === null) {
+      return;
+    }
+
+    if (composerViewportHeightBeforeKeyboard - visualViewport.height > 100) {
+      composerKeyboardWasOpen = true;
+    }
+
+    if (
+      composerKeyboardWasOpen &&
+      visualViewport.height >= composerViewportHeightBeforeKeyboard - 50
+    ) {
+      composerKeyboardWasOpen = false;
+      composerViewportHeightBeforeKeyboard = null;
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+    }
+  });
+}
+
 text.addEventListener("input", autoExpand);
 text.addEventListener("paste", autoExpand);
 

@@ -1,4 +1,4 @@
-groot {
+:root {
   --bg-color: #F0F0F0;
   --heading-color: #000000;
   --text-input-bg-color: #f6f6f6;
@@ -535,7 +535,7 @@ svg {
     bottom: 0;
     left: 0;
     z-index: 100;
-    padding-top: 1.9rem;
+    padding-top: 1.5rem;
     background-color: var(--bg-color);
   }
 
