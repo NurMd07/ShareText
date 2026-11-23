@@ -145,6 +145,7 @@ function Fill() {
   empty.style.display = "none";
 }
 let interval;
+let isShowingHiddenTexts = false;
 async function getText(
   isError = false,
   isSuccess = false,
@@ -152,6 +153,7 @@ async function getText(
   newlyAddedTextIds = [],
   scrollTop = list.scrollTop
 ) {
+  isShowingHiddenTexts = secret === "!";
   if (interval) {
     clearTimeout(interval);
   }
@@ -221,7 +223,8 @@ async function getText(
         li.dataset.restored = String(Boolean(text.restored));
         li.dataset.date = text.created;
         li.dataset.pin = text.pin;
-        li.dataset.hidden = text.hidden;
+        const isHidden = text.hidden === true;
+        li.dataset.hidden = String(isHidden);
         if (newlyAddedTextIdSet.has(String(text._id))) {
           li.classList.add("card-enter");
         }
@@ -246,8 +249,8 @@ async function getText(
         if (text.created == "Just now" || text.created == "1m ago") {
           li.classList.add("bg-success", "text-white");
         }
-        if (text.hidden) {
-          li.classList.add("bg-info", "text-white");
+        if (isHidden) {
+          li.classList.add("bg-hidden", "text-white");
         }
 
         list.appendChild(li);
@@ -453,6 +456,7 @@ function updateEditedCard(card, text) {
   }
   card.dataset.date = "Just now";
   const dateElement = card.querySelector(".date1");
+
   if (dateElement) {
     dateElement.textContent = "Just now";
   }
@@ -701,6 +705,9 @@ function nodeInserted(node) {
       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
       </svg></a></li>
+      <li><a class="dropdown-item d-flex justify-content-between align-items-center hide-text" href="#"><span class="hide-text-label">Hide</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ms-2 bi bi-eye-slash" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5c-1.39 0-2.59.43-3.59 1.05l.8.8A5.7 5.7 0 0 1 8 3.5c3.5 0 6 3.5 6.8 4.5a13 13 0 0 1-2.15 2.55l.71.688zM1.646 1.646a.5.5 0 0 1 .708 0l12 12a.5.5 0 0 1-.708.708l-2.1-2.1A7.3 7.3 0 0 1 8 13.5C3 13.5 0 8 0 8s1.08-1.99 2.9-3.51L1.646 2.354a.5.5 0 0 1 0-.708zM4.3 5.71A4.5 4.5 0 0 0 2 8c.8 1 3.3 4.5 6 4.5.8 0 1.55-.25 2.22-.65L9 10.63A3 3 0 0 1 5.37 7L4.3 5.71z"/>
+      </svg></a></li>
       <li><hr class="dropdown-divider"></li>
 
       <li><a class="dropdown-item fw-bold text-danger d-flex justify-content-between align-items-center delete" href="#"><span></span>Delete<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
@@ -713,17 +720,56 @@ function nodeInserted(node) {
       <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
       </svg><svg style="position:absolute;right:-0.5em;top:0.3em;display:none" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pin-angle-fill text-danger pinicon" viewBox="0 0 16 16">
       <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 0 .707c-.48.48-1.072.588-1.503.588-.177 0-.335-.018-.46-.039l-3.134 3.134a5.927 5.927 0 0 1 .16 1.013c.046.702-.032 1.687-.72 2.375a.5.5 0 0 1-.707 0l-2.829-2.828-3.182 3.182c-.195.195-1.219.902-1.414.707-.195-.195.512-1.22.707-1.414l3.182-3.182-2.828-2.829a.5.5 0 0 1 0-.707c.688-.688 1.673-.767 2.375-.72a5.922 5.922 0 0 1 1.013.16l3.134-3.133a2.772 2.772 0 0 1-.04-.461c0-.43.108-1.022.589-1.503a.5.5 0 0 1 .353-.146z"/>
+      </svg><svg style="position:absolute;right:-0.5em;top:0.3em;display:none" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-eye-slash hiddenicon" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5c-1.39 0-2.59.43-3.59 1.05l.8.8A5.7 5.7 0 0 1 8 3.5c3.5 0 6 3.5 6.8 4.5a13 13 0 0 1-2.15 2.55l.71.688zM1.646 1.646a.5.5 0 0 1 .708 0l12 12a.5.5 0 0 1-.708.708l-2.1-2.1A7.3 7.3 0 0 1 8 13.5C3 13.5 0 8 0 8s1.08-1.99 2.9-3.51L1.646 2.354a.5.5 0 0 1 0-.708zM4.3 5.71A4.5 4.5 0 0 1 2 8c.8 1 3.3 4.5 6 4.5.8 0 1.55-.25 2.22-.65L9 10.63A3 3 0 0 1 5.37 7L4.3 5.71z"/>
       </svg>`);
     const cardMeta = newNode.querySelector(".before1");
     cardContent.insertBefore(cardMeta, cardText);
     cardMeta.prepend(
       newNode.querySelector(".pinstar"),
-      newNode.querySelector(".pinicon")
+      newNode.querySelector(".pinicon"),
+      newNode.querySelector(".hiddenicon")
     );
 
     const copyFeedback = newNode.querySelector(".copy-feedback");
     const menuButton = newNode.querySelector(".drop");
     const cardDropdown = newNode.querySelector(".dropdown");
+    const hideTextAction = newNode.querySelector(".hide-text");
+    const hideTextLabel = hideTextAction.querySelector(".hide-text-label");
+    hideTextLabel.textContent =
+      newNode.dataset.hidden === "true" ? "Unhide" : "Hide";
+    hideTextAction.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const shouldHide = newNode.dataset.hidden !== "true";
+      loader.style.display = "inline-block";
+
+      try {
+        const response = await fetch("hidden", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: newNode.dataset.id,
+            hidden: shouldHide,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("Unable to update hidden text");
+        }
+
+        const data = await response.json();
+        newNode.dataset.hidden = String(data.hidden);
+        hideTextLabel.textContent = data.hidden ? "Unhide" : "Hide";
+        getText(false, false, isShowingHiddenTexts ? "!" : "nothere");
+      } catch (error) {
+        console.error("Unable to update hidden text", error);
+        const errorItem = document.createElement("li");
+        errorItem.classList.add("error");
+        errorItem.textContent = "Could not update hidden text. Please try again.";
+        list.appendChild(errorItem);
+      } finally {
+        loader.style.display = "none";
+      }
+    });
     cardDropdown.addEventListener("shown.bs.dropdown", () => {
       newNode.classList.add("card-menu-open");
       document.body.classList.add("card-menu-open");
@@ -752,6 +798,7 @@ function nodeInserted(node) {
         copyFeedback.classList.remove("copy-failed");
         menuButton.classList.add("is-copied");
         menuButton.setAttribute("aria-label", "Copied to clipboard");
+        cardContent.classList.add("is-copied");
       } catch (error) {
         console.error("Unable to copy saved text", error);
         copyFeedback.textContent = "Copy failed";
@@ -759,6 +806,7 @@ function nodeInserted(node) {
         menuButton.classList.remove("is-copied");
         menuButton.setAttribute("aria-label", "More options");
         copyFeedback.classList.add("show");
+        cardContent.classList.remove("is-copied");
       }
 
       window.clearTimeout(copyFeedbackTimeout);
@@ -768,6 +816,7 @@ function nodeInserted(node) {
           copyFeedback.textContent = "";
           menuButton.classList.remove("is-copied");
           menuButton.setAttribute("aria-label", "More options");
+          cardContent.classList.remove("is-copied");
         },
         2000
       );
@@ -1070,9 +1119,6 @@ function nodeInserted(node) {
           loader.style.display = "none";
         });
 
-      if (newNode.dataset.hidden) {
-        newNode.classList.add("bg-info", "text-white");
-      }
     });
 
     newNode.querySelector(".delete").addEventListener("click", function (ef) {
@@ -1170,6 +1216,8 @@ function nodeInserted(node) {
       let mainText = nodeText.innerHTML.replace("UnPin", "Pin to Top");
       nodeText.innerHTML = mainText;
     }
+    newNode.querySelector(".hiddenicon").style.display =
+      newNode.dataset.hidden === "true" ? "block" : "none";
     if (newNode.dataset.important == "true") {
       newNode.querySelector(".date1").classList.remove("text-muted");
     }
@@ -1182,6 +1230,19 @@ function nodeInserted(node) {
  
   }
 };
+
+list.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) {
+    return;
+  }
+
+  const dateElement = event.target.closest(".date1");
+  if (dateElement && list.contains(dateElement)) {
+    event.stopPropagation();
+    const card = dateElement.closest(".list-text");
+    card?.querySelector(".drop")?.click();
+  }
+});
 
 list.addEventListener("mouseover", (e) => {
   if (document.body.classList.contains("suppress-card-hover")) {

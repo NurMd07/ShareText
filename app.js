@@ -1349,6 +1349,31 @@ app.post("/important", async (req, res, next) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+app.post("/hidden", async (req, res) => {
+  const userid = req.session?.user?.userId;
+  if (!userid) {
+    return res.status(400).json({ msg: "Bad request" });
+  }
+  if (typeof req.body.hidden !== "boolean") {
+    return res.status(400).json({ msg: "Invalid hidden state" });
+  }
+
+  try {
+    const text = await Text.findOneAndUpdate(
+      { _id: req.body.id, user: userid },
+      { hidden: req.body.hidden },
+      { new: true }
+    );
+    if (!text) {
+      return res.status(404).json({ msg: "Text not found" });
+    }
+
+    res.json({ hidden: text.hidden });
+  } catch (err) {
+    console.error("Error updating hidden text:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
 app.post("/pintop", async (req, res, next) => {
   if (!req.session.user.userId) {
     return res.status(400).json({ msg: "Bad request" });

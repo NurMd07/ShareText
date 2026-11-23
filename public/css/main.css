@@ -682,6 +682,11 @@ svg {
   --list-card-bg-color: #6c757d;
 }
 
+.maincontent1 > li.list-text.bg-hidden {
+  --list-card-bg-color: #87CEFA;
+  --list-card-hover-bg-color: #6CB6E8;
+}
+
 .maincontent1 > li.list-text[data-pin="true"]:not([data-important="true"]) {
   --list-card-bg-color: #dc3545;
   --list-card-hover-bg-color: #b02a37;
@@ -772,10 +777,12 @@ svg {
   padding: 0 !important;
   line-height: 1;
   cursor: default;
+  transform: translateY(0.1em);
 }
 
 .maincontent1 > li.list-text .before1 > .pinstar,
-.maincontent1 > li.list-text .before1 > .pinicon {
+.maincontent1 > li.list-text .before1 > .pinicon,
+.maincontent1 > li.list-text .before1 > .hiddenicon {
   position: static !important;
   inset: auto !important;
   flex: 0 0 12px;
@@ -785,6 +792,10 @@ svg {
 
 .maincontent1 > li.list-text .before1 > .pinicon {
   color: #ffe082 !important;
+}
+
+.maincontent1 > li.list-text .before1 > .hiddenicon {
+  color: #fff !important;
 }
 
 .maincontent1 > li.list-text .before1 .date1 {
@@ -818,6 +829,7 @@ svg {
   height: 1.35rem;
   margin: 0 !important;
   padding: 0;
+  position: relative;
   border-radius: 50%;
   color: var(--send-button-color);
   line-height: 0;
@@ -832,6 +844,13 @@ svg {
   background-color: var(--card-menu-bg);
   color: var(--card-menu-color);
   cursor: pointer;
+}
+
+.maincontent1 > li.list-text .before1 .drop::before {
+  position: absolute;
+  inset: -0.375rem;
+  border-radius: inherit;
+  content: "";
 }
 
 .maincontent1 > li.list-text .before1 .dots {
@@ -879,8 +898,8 @@ svg {
 .maincontent1 > li.list-text .before1 .drop.is-copied,
 .maincontent1 > li.list-text .before1 .drop.is-copied:hover,
 .maincontent1 > li.list-text .before1 .drop.is-copied:focus-visible {
-  background-color: #198754;
-  color: #fff;
+  background-color: #fd7e14;
+  color: #292929;
 }
 
 .maincontent1 > li.list-text .card-text {
@@ -946,6 +965,18 @@ body.suppress-card-hover .maincontent1 > li.list-text:hover .card-content {
   background-color: var(--list-card-bg-color);
   color: inherit;
   box-shadow: var(--list-item-shadow);
+}
+
+.maincontent1 > li.list-text.bg-hidden .card-content,
+.maincontent1 > li.list-text.bg-hidden:hover .card-content,
+body.suppress-card-hover .maincontent1 > li.list-text.bg-hidden:hover .card-content {
+  color: #212529;
+}
+
+.maincontent1 > li.list-text .card-content.is-copied,
+.maincontent1 > li.list-text:hover .card-content.is-copied {
+  outline: 2px solid #fd7e14;
+  outline-offset: -3px;
 }
 
 .maincontent1 > li.card-menu-open {
@@ -1335,6 +1366,15 @@ body.suppress-card-hover .maincontent1 > li.list-text:hover .card-content {
   transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
+.maincontent1 > li.list-text .dropdown-menu .hide-text-label {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.maincontent1 > li.list-text .dropdown-menu .dropdown-item.hide-text {
+  gap: 0;
+}
+
 .maincontent1 > li.list-text .dropdown-menu .dropdown-item:hover,
 .maincontent1 > li.list-text .dropdown-menu .dropdown-item:focus-visible {
   background-color: var(--popup-item-hover);
@@ -1363,6 +1403,10 @@ body.suppress-card-hover .maincontent1 > li.list-text:hover .card-content {
 
 .maincontent1 > li.list-text .dropdown-menu .dropdown-item.edit svg {
   color: #a855f7;
+}
+
+.maincontent1 > li.list-text .dropdown-menu .dropdown-item.hide-text svg {
+  color: #fff;
 }
 
 .maincontent1 > li.list-text .dropdown-menu .dropdown-item.delete {
@@ -1399,6 +1443,12 @@ body.suppress-card-hover .maincontent1 > li.list-text:hover .card-content {
 }
 
 .account-menu {
+  --popup-content-bg-color: #111;
+  --popup-content-border: 1px solid #303030;
+  --popup-content-text-color: #f4f4f4;
+  --popup-content-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  --popup-item-hover: #292929;
+  --popup-item-active: #3a3a3a;
   visibility: hidden;
   opacity: 0;
   transform: translateY(-0.35rem) scale(0.98);
