@@ -683,8 +683,8 @@ svg {
 }
 
 .maincontent1 > li.list-text.bg-hidden {
-  --list-card-bg-color: #87CEFA;
-  --list-card-hover-bg-color: #6CB6E8;
+  --list-card-bg-color: #7b5fe2;
+  --list-card-hover-bg-color: #6b53c4;
 }
 
 .maincontent1 > li.list-text[data-pin="true"]:not([data-important="true"]) {
@@ -970,7 +970,7 @@ body.suppress-card-hover .maincontent1 > li.list-text:hover .card-content {
 .maincontent1 > li.list-text.bg-hidden .card-content,
 .maincontent1 > li.list-text.bg-hidden:hover .card-content,
 body.suppress-card-hover .maincontent1 > li.list-text.bg-hidden:hover .card-content {
-  color: #212529;
+  color: #ffffff;
 }
 
 .maincontent1 > li.list-text .card-content.is-copied,
