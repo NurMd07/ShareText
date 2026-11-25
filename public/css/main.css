@@ -18,9 +18,17 @@
   --list-card-restored-hover-bg: #115e59;
   --card-copy-bg: #e4efff;
   --card-copy-color: #1559a8;
+  --card-copy-success-bg: #dcfce7;
+  --card-copy-success-text: #166534;
+  --card-copy-success-menu-bg: #16a34a;
+  --card-copy-success-menu-text: #ffffff;
   --card-menu-bg: var(--brand-accent);
   --card-menu-hover-bg: var(--send-button-hover-bg);
   --card-menu-color: rgba(255, 255, 255, 0.84);
+  --card-hidden-text: #ffffff;
+  --card-hidden-border: rgba(255, 255, 255, 0.08);
+  --card-hidden-time-bg: rgba(255, 255, 255, 0.12);
+  --card-hidden-time-text: #ffffff;
   --card-time-bg: #f2f4f7;
   --card-time-color: #536171;
   --popup-content-bg-color: #fff;
@@ -77,9 +85,17 @@
   --list-card-restored-hover-bg: #0f766e;
   --card-copy-bg: #294560;
   --card-copy-color: #d5eaff;
+  --card-copy-success-bg: #dcfce7;
+  --card-copy-success-text: #166534;
+  --card-copy-success-menu-bg: #16a34a;
+  --card-copy-success-menu-text: #ffffff;
   --card-menu-bg: #356f9e;
   --card-menu-hover-bg: #2c5e87;
   --card-menu-color: rgba(255, 255, 255, 0.84);
+  --card-hidden-text: #ffffff;
+  --card-hidden-border: rgba(255, 255, 255, 0.08);
+  --card-hidden-time-bg: rgba(255, 255, 255, 0.12);
+  --card-hidden-time-text: #ffffff;
   --card-time-bg: rgba(0, 0, 0, 0.12);
   --card-time-color: rgba(224, 227, 232, 0.94);
   --popup-content-bg-color: #171616;
@@ -683,8 +699,8 @@ svg {
 }
 
 .maincontent1 > li.list-text.bg-hidden {
-  --list-card-bg-color: #7b5fe2;
-  --list-card-hover-bg-color: #6b53c4;
+  --list-card-bg-color: #624bb8;
+  --list-card-hover-bg-color: #503c9e;
 }
 
 .maincontent1 > li.list-text[data-pin="true"]:not([data-important="true"]) {
@@ -898,8 +914,8 @@ svg {
 .maincontent1 > li.list-text .before1 .drop.is-copied,
 .maincontent1 > li.list-text .before1 .drop.is-copied:hover,
 .maincontent1 > li.list-text .before1 .drop.is-copied:focus-visible {
-  background-color: #fd7e14;
-  color: #292929;
+  background-color: var(--card-copy-success-menu-bg);
+  color: var(--card-copy-success-menu-text);
 }
 
 .maincontent1 > li.list-text .card-text {
@@ -970,13 +986,23 @@ body.suppress-card-hover .maincontent1 > li.list-text:hover .card-content {
 .maincontent1 > li.list-text.bg-hidden .card-content,
 .maincontent1 > li.list-text.bg-hidden:hover .card-content,
 body.suppress-card-hover .maincontent1 > li.list-text.bg-hidden:hover .card-content {
-  color: #ffffff;
+  color: var(--card-hidden-text);
+  border-color: var(--card-hidden-border);
+}
+
+.maincontent1 > li.list-text.bg-hidden .before1 .date1 {
+  background-color: var(--card-hidden-time-bg);
+  color: #ffffff !important;
+}
+
+.maincontent1 > li.list-text.bg-hidden .before1 > .hiddenicon {
+  color: var(--card-hidden-text) !important;
 }
 
 .maincontent1 > li.list-text .card-content.is-copied,
 .maincontent1 > li.list-text:hover .card-content.is-copied {
-  outline: 2px solid #fd7e14;
-  outline-offset: -3px;
+  background-color: var(--card-copy-success-bg);
+  color: var(--card-copy-success-text);
 }
 
 .maincontent1 > li.card-menu-open {
@@ -1443,12 +1469,7 @@ body.suppress-card-hover .maincontent1 > li.list-text.bg-hidden:hover .card-cont
 }
 
 .account-menu {
-  --popup-content-bg-color: #111;
-  --popup-content-border: 1px solid #303030;
-  --popup-content-text-color: #f4f4f4;
-  --popup-content-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-  --popup-item-hover: #292929;
-  --popup-item-active: #3a3a3a;
+  --popup-action-bg-color: var(--popup-content-bg-color);
   visibility: hidden;
   opacity: 0;
   transform: translateY(-0.35rem) scale(0.98);
@@ -1458,6 +1479,10 @@ body.suppress-card-hover .maincontent1 > li.list-text.bg-hidden:hover .card-cont
   top: calc(clamp(1.25rem, 2vw, 1.75rem) + 3.25rem);
   right: calc(clamp(1rem, 3vw, 1.5rem) + 2.25rem);
   transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+}
+
+[data-theme="dark"] .account-menu {
+  --popup-action-bg-color: color-mix(in srgb, var(--popup-content-bg-color) 94%, #000000);
 }
 
 .account-menu,
@@ -1960,7 +1985,7 @@ body.delete-menu-open .account-menu.show .mobile-guide-actions::before {
   padding: 0;
   border: var(--popup-content-border);
   border-radius: 0.85rem;
-  background-color: var(--popup-content-bg-color);
+  background-color: var(--popup-action-bg-color);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   color: var(--brand-accent);
   cursor: pointer;
@@ -2030,7 +2055,7 @@ body.delete-menu-open .account-menu.show .mobile-guide-actions::before {
   padding: 0;
   border: var(--popup-content-border);
   border-radius: 0.85rem;
-  background-color: var(--popup-content-bg-color);
+  background-color: var(--popup-action-bg-color);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   color: #dc3545;
   opacity: 1;
